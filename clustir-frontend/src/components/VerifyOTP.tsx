@@ -47,7 +47,9 @@ const VerifyOTP = () => {
           </div>
           <div className="text-[#000000] font-[700] flex justify-center items-center">
             janedoe@gmail.com{" "}
-            <span className="text-[#4C45EE] ml-[10px]">Edit</span>
+            <span className="text-[#4C45EE] ml-[10px] cursor-pointer">
+              Edit
+            </span>
           </div>
           <div className="flex justify-center items-center mt-[50px] verify-input ">
             <OTPInput
