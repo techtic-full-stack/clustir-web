@@ -20,7 +20,7 @@ const Layout = ({ children }: LayoutWrapperType) => {
       {/* Footer */}
       <footer className="bg-[#F4F4F4] py-4  text-sm h-[77px] flex items-center mt-[30px]">
         <div className="flex pl-[77px]">
-          <div className="font-brother font-normal text-base leading-tight">
+          <div className="text-[#000] font-brother font-normal text-base leading-tight">
             ©2023 Clustir, Inc.
           </div>
           <a

@@ -3,39 +3,35 @@ import React from "react";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { Typography } from "antd";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 
 const { Paragraph } = Typography;
-
+const validationSchema = Yup.object().shape({
+  email: Yup.string()
+    .email("Invalid email address")
+    .required("Email is required"),
+  password: Yup.string().required("Password is required"),
+});
 function CreateAccount() {
   const initialValues = {
     email: "",
     password: "",
   };
 
-  const validate = (values: any) => {
-    const errors: any = {};
-    if (!values.email) {
-      errors.email = "Required";
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
-      errors.email = "Invalid email address";
-    }
-    if (!values.password) {
-      errors.password = "Required";
-    }
-    return errors;
-  };
+  const onSubmit = (values: any, { setSubmitting }: any) => {
+    setTimeout(() => {
+      alert(JSON.stringify(values, null, 2));
+      setSubmitting(false);
+    }, 400);
+  }
+
 
   return (
     <div className=" flex justify-center items-center h-[70vh] m-[30px]">
       <Formik
         initialValues={initialValues}
-        validate={validate}
-        onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 400);
-        }}
+        validationSchema={validationSchema}
+        onSubmit={onSubmit}
       >
         {({ isSubmitting, touched, errors }) => (
           <Form>
@@ -71,7 +67,6 @@ function CreateAccount() {
                   <Field
                     type="password"
                     name="password"
-                    placeholder="input password"
                     className={`h-12 px-4 py-2 rounded-md border w-full ${
                       touched.password && errors.password
                         ? "border-red-500"

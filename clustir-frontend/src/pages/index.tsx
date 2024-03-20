@@ -1,16 +1,14 @@
-import Image from "next/image";
-import { Inter } from "next/font/google";
-import AuthLayout from "../components/auth/AuthLayout";
-import CreateAccount from "@/components/createAccount";
-
-const inter = Inter({ subsets: ["latin"] });
+import { useRouter } from "next/router";
+import { use, useEffect } from "react";
 
 export default function Home() {
+ const router =useRouter();
+  useEffect(() => {
+  router.push('/login')
+ },[])
   return (
     <>
-      <AuthLayout>
-        <CreateAccount />
-      </AuthLayout>
+      
     </>
   );
 }
