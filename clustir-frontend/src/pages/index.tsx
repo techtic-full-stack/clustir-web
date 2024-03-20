@@ -1,16 +1,16 @@
 import Image from "next/image";
 import { Inter } from "next/font/google";
-import Layout from "@/components/Layout";
+import AuthLayout from "../components/auth/AuthLayout";
+import CreateAccount from "@/components/createAccount";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   return (
     <>
-      <Layout >
-
-      </Layout>
-
+      <AuthLayout>
+        <CreateAccount />
+      </AuthLayout>
     </>
   );
 }
