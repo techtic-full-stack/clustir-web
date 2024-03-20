@@ -22,7 +22,9 @@ const Layout = ({ children }: LayoutWrapperType) => {
 
       {/* Child */}
 
-      <div className="flex flex-grow bg-[#F8F8F8]">{children}</div>
+      <div className="flex justify-center items-center flex-grow bg-[#F8F8F8] ">
+        {children}
+      </div>
 
       {/* Footer */}
     </div>
