@@ -59,7 +59,9 @@ function CreateAccount() {
 
             <div className="text-[14px] flex justify-center items-center  mt-[30px]">
               Have an account?{" "}
-              <span className="text-[#000000] ml-[3px] font-[500]">Login</span>
+              <span className="text-[#000000] ml-[5px] font-[500] text-[14px]">
+                Login
+              </span>
             </div>
           </div>
         </div>
