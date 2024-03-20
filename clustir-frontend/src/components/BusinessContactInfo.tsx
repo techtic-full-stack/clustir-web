@@ -1,11 +1,11 @@
-import { Col, Row, Input, Card, Button, Form } from "antd";
+import { Col, Row, Input, Card, Button } from "antd";
 import { useState } from "react";
-import { Formik, } from "formik";
+import { Field, Formik, Form } from "formik";
 import * as Yup from "yup";
 import { ErrorMessage } from "formik";
 
 interface FormValues {
-  businessName: string;
+  businessName: string | undefined;
   contactName: string;
   employerID: string;
   title: string;
@@ -32,30 +32,32 @@ const initialValues = {
   mobile: "",
 };
 
-const validationSchema = Yup.object({
-  businessName: Yup.string().required("Required"),
-  contactName: Yup.string().required("Required"),
-  employerID: Yup.string().required("Required"),
-  title: Yup.string().required("Required"),
-  websiteURL: Yup.string().required("Required"),
-  businessStreetAddress: Yup.string().required("Required"),
+const validationSchema = Yup.object().shape({
+  businessName: Yup.string().required("Business Name is required"),
+  contactName: Yup.string().required("Contact Name is required"),
+  employerID: Yup.string().required("Employee ID is required"),
+  title: Yup.string().required("Title is required"),
+  websiteURL: Yup.string().required("Website URL is required"),
+  businessStreetAddress: Yup.string().required("Business Street Address is required"),
   aptSteBldg: Yup.string(),
-  zipCode: Yup.string().required("Required"),
-  city: Yup.string().required("Required"),
-  state: Yup.string().required("Required"),
-  mobile: Yup.string().required("Required"),
+  zipCode: Yup.string().required("Zip Code is required"),
+  city: Yup.string().required("City is required"),
+  state: Yup.string().required("State is required"),
+  mobile: Yup.string().required("Mobile is required"),
 });
 const BusinessContactInfo = ({
   OnBoardData,
-  setOnBoardData,
+  setOnBoardData,step,setStep
 }: {
   OnBoardData: any;
   setOnBoardData: any;
+  step: any,setStep: any;
 }) => {
   const onSubmit = (values: FormValues) => {
 
     try {
-      console.log("values :>> ", values);
+      setStep(step + 1);
+      setOnBoardData(...OnBoardData, values);
     } catch (error) { }
   };
   return (
@@ -67,8 +69,8 @@ const BusinessContactInfo = ({
         onSubmit={onSubmit}
         enableReinitialize
       >
-        {({ isSubmitting,errors }) => {
-          console.log('errors :>> ',isSubmitting, errors);
+        {({ isSubmitting, errors }) => {
+          console.log('errors :>> ', errors);
           return (
             <Form>
               <Card className="flex flex-col bg-[#FFFFFF] p-[5px] rounded-lg w-[862px]">
@@ -79,10 +81,8 @@ const BusinessContactInfo = ({
                     <div>
                       Business Name <span className="text-[red]">*</span>
                     </div>
-                    <Input size="large" id="businessName" name="businessName" />
-                    <ErrorMessage name="businessName">
-                      {(msg) => <div className="text-red-500">{msg}</div>}
-                    </ErrorMessage>
+                    <Field type="text" size="large" id="businessName" name="businessName" as={Input} />
+                    <ErrorMessage name="businessName" component="div" className="text-red-500" />
                   </Col>
                 </Row>
 
@@ -92,7 +92,9 @@ const BusinessContactInfo = ({
                     <div>
                       Contact Name <span className="text-[red]">*</span>
                     </div>
-                    <Input size="large" id="contactName" name="contactName" />
+                    <Field type="text" size="large" id="contactName" name="contactName" as={Input} />
+                    <ErrorMessage name="contactName" component="div" className="text-red-500" />
+
                   </Col>
                 </Row>
 
@@ -101,7 +103,9 @@ const BusinessContactInfo = ({
                     <div>
                       Employee ID # <span className="text-[red]">*</span>
                     </div>
-                    <Input size="large" id="employerID" name="employerIDs" />
+                    <Field type="text" size="large" id="employerID" name="employerID" as={Input} />
+                    <ErrorMessage name="employerID" component="div" className="text-red-500" />
+
                   </Col>
                 </Row>
                 <Row className="my-[14] sm:mb-5">
@@ -109,7 +113,8 @@ const BusinessContactInfo = ({
                     <div>
                       Title <span className="text-[red]">*</span>
                     </div>
-                    <Input size="large" id="title" name="title" />
+                    <Field type="text" size="large" id="title" name="title" as={Input} />
+                    <ErrorMessage name="title" component="div" className="text-red-500" />
                   </Col>
                 </Row>
 
@@ -118,7 +123,8 @@ const BusinessContactInfo = ({
                     <div>
                       Website URL <span className="text-[red]">*</span>
                     </div>
-                    <Input size="large" id="websiteURL" name="websiteURL" />
+                    <Field type="text" size="large" id="websiteURL" name="websiteURL" as={Input} />
+                    <ErrorMessage name="websiteURL" component="div" className="text-red-500" />
                   </Col>
                 </Row>
 
@@ -128,18 +134,16 @@ const BusinessContactInfo = ({
                       Business Street Address{" "}
                       <span className="text-[red]">*</span>
                     </div>
-                    <Input
-                      size="large"
-                      id="businessStreetAddress"
-                      name="businessStreetAddress"
-                    />
+                    <Field type="text" size="large" id="businessStreetAddress" name="businessStreetAddress" as={Input} />
+                    <ErrorMessage name="businessStreetAddress" component="div" className="text-red-500" />
                   </Col>
                 </Row>
 
                 <Row className="my-[14] sm:mb-5">
                   <Col span={24} className="mb-5 sm:mb-0">
                     <div>Apt. ste. bldg. (optional)</div>
-                    <Input name="aptSteBldg" id="aptSteBldg" size="large" />
+                    <Field type="text" size="large" id="aptSteBldg" name="aptSteBldg" as={Input} />
+                    <ErrorMessage name="aptSteBldg" component="div" className="text-red-500" />
                   </Col>
                 </Row>
                 <Row className="my-[14]  sm:mb-5">
@@ -147,13 +151,15 @@ const BusinessContactInfo = ({
                     <div>
                       Zip Code <span className="text-[red]">*</span>
                     </div>
-                    <Input size="large" id="zipCode" name="zipCode" />
+                    <Field type="text" size="large" id="zipCode" name="zipCode" as={Input} />
+                    <ErrorMessage name="zipCode" component="div" className="text-red-500" />
                   </Col>
                   <Col span={12} className="sm:mb-0">
                     <div>
                       City <span className="text-[red]">*</span>
                     </div>
-                    <Input size="large" name="city" id="city" />
+                    <Field type="text" size="large" id="city" name="city" as={Input} />
+                    <ErrorMessage name="city" component="div" className="text-red-500" />
                   </Col>
                 </Row>
 
@@ -162,16 +168,26 @@ const BusinessContactInfo = ({
                     <div>
                       State<span className="text-[red]">*</span>
                     </div>
-                    <Input size="large" id="state" name="state" />
+                    <Field type="text" size="large" id="state" name="state" as={Input} />
+                    <ErrorMessage name="state" component="div" className="text-red-500" />
                   </Col>
                 </Row>
 
                 <Row className="my-[14] sm:mb-5">
                   <Col span={24} className="mb-5 sm:mb-0">
                     <div>
-                      State<span className="text-[red]">*</span>
+                      Mobile<span className="text-[red]">*</span>
                     </div>
-                    <Input size="large" id="state" name="state" />
+                    <div className="flex">
+                    <Input
+                      size="large"
+                      style={{ width: '80px' }} // Adjust width as needed
+                      value="+1"
+                      disabled
+                    />
+                    <Field type="text" size="large" id="mobile" name="mobile" as={Input} />
+                  </div>
+                    <ErrorMessage name="mobile" component="div" className="text-red-500" />
                   </Col>
                 </Row>
               </Card>
@@ -182,12 +198,7 @@ const BusinessContactInfo = ({
                 >
                   Go back
                 </Button>
-                <Button
-                  loading={isSubmitting}
-                  type="primary"
-                  htmlType="submit"
-                  className="bg-[#4C45EE] text-white w-[100px] h-[40px]"
-                >
+                <Button loading={isSubmitting} type="primary" htmlType="submit" className="bg-[#4C45EE] text-white w-[100px] h-[40px]">
                   Next
                 </Button>
               </div>{" "}
