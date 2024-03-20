@@ -5,9 +5,8 @@ import OnboardProcess from "@/components/onboardProcess";
 const Onboard = () => {
   return (
     <Layout>
-      <div className="bg-[#F8F8F8] flex">
-        {/* <OnboardProcess /> */}
-        Business Contact Info1233132
+      <div className="bg-[#F8F8F8] justify-center items-center">
+        <OnboardProcess />
       </div>
     </Layout>
   );

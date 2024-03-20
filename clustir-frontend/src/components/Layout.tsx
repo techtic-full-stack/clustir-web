@@ -10,7 +10,7 @@ const Layout = ({ children }: LayoutWrapperType) => {
     <div className="min-h-screen flex flex-col">
       <div className="bg-[#FFFFFF]">
         <div className="flex justify-between px-[106px] py-[20px]">
-          <div className="flex">    
+          <div className="flex">
             <ClustirLogo />
             <div className="pl-[60px] flex justify-center items-center ">
               <Image src={lock} alt={"Lock"} width={15} height={15} />
@@ -22,8 +22,7 @@ const Layout = ({ children }: LayoutWrapperType) => {
 
       {/* Child */}
 
-      <div className="flex flex-grow justify-center items-center bg-[#F8F8F8]">
-       {children}</div>
+      <div className="flex flex-grow bg-[#F8F8F8]">{children}</div>
 
       {/* Footer */}
     </div>
