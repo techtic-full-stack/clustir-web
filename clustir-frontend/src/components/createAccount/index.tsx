@@ -47,7 +47,7 @@ function CreateAccount() {
             <span className="text-[14px] font-[400] flex justify-center items-center">
               By creating an account you agree to the
             </span>
-            <Paragraph className=" flex justify-center items-center mb-[20px]">
+            <Paragraph className=" flex justify-center items-center">
               <span className="text-[#4C45EE] text-[14px] mr-[6px] font-[500]">
                 Terms of Service
               </span>{" "}
@@ -57,8 +57,9 @@ function CreateAccount() {
               </span>
             </Paragraph>
 
-            <div className="text-[14px] flex justify-center items-center">
-              Have an account? Login
+            <div className="text-[14px] flex justify-center items-center  mt-[30px]">
+              Have an account?{" "}
+              <span className="text-[#000000] ml-[3px] font-[500]">Login</span>
             </div>
           </div>
         </div>
