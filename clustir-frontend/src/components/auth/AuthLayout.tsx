@@ -9,7 +9,7 @@ const Layout = ({ children }: LayoutWrapperType) => {
   return (
     <div className="min-h-screen flex flex-col justify-between bg-[#F8F8F8]">
       <div className="flex flex-col justify-center items-center relative">
-        <div className="mt-[20px] w-[600px] ">
+        <div className="mt-[30px] w-[600px] ">
           <div className="flex items-center justify-center">
             <ClustirLogo />
           </div>
@@ -18,31 +18,22 @@ const Layout = ({ children }: LayoutWrapperType) => {
       </div>
 
       {/* Footer */}
-      <footer className="bg-[#F4F4F4] py-4  text-sm h-[77px] flex items-center mt-[30px]">
+      <footer className="bg-[#F4F4F4] py-4 text-sm h-[77px] flex items-center mt-[20px]">
         <div className="flex pl-[77px]">
           <div className="text-[#000] font-brother font-normal text-base leading-tight">
             ©2023 Clustir, Inc.
           </div>
-          <a
-            href="#"
-            className="pl-[100px] text-base font-normal leading-tight text-[#4C45EE]"
-          >
+          <button className="pl-[100px] text-base font-normal leading-tight text-[#4C45EE] focus:outline-none">
             Privacy Policy
-          </a>
+          </button>
 
-          <a
-            href="#"
-            className="pl-[40px] text-base  font-normal leading-tight text-[#4C45EE]"
-          >
+          <button className="pl-[40px] text-base font-normal leading-tight text-[#4C45EE] focus:outline-none">
             Terms of Service
-          </a>
+          </button>
 
-          <a
-            href="#"
-            className="pl-[40px] text-base  font-normal leading-tight text-[#4C45EE]"
-          >
+          <button className="pl-[40px] text-base font-normal leading-tight text-[#4C45EE] focus:outline-none">
             Cookie Policy
-          </a>
+          </button>
         </div>
       </footer>
     </div>

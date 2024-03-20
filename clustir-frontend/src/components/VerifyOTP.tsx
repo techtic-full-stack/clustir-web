@@ -6,7 +6,13 @@ import OTPInput from "react-otp-input";
 const { Text } = Typography;
 const VerifyOTP = () => {
   const [email, setEmail] = useState("");
+  const [confirm, setConfirm] = useState(false);
   const [otp, setOtp] = useState("");
+
+  const sendOtp = () => {
+    setConfirm(true);
+  };
+
   const [resendTimer, setResendTimer] = useState(0);
 
   useEffect(() => {
@@ -30,48 +36,53 @@ const VerifyOTP = () => {
 
   return (
     <>
-      <div className="flex justify-center items-center h-[70vh] m-[30px]">
+      <div className="flex justify-center items-center p-[50px]">
         <div className="w-[400px]">
-          <div className="flex justify-center items-center font-[700] text-[18px]  text-[#000000]">
+          <div className="flex justify-center items-center font-[700] text-[25px]  text-[#000000]">
             Verify Your Account
           </div>
 
-          <div className="flex justify-center items-center font-[500] text-[16px]  text-[#000000]">
-            We sent you a code to verify your account at {email} Edit
+          <div className="flex justify-center items-center font-[400] pt-[20px] text-[16px]  text-[#000000]">
+            We sent you a code to verify your account at
           </div>
-          <div className=" flex  flex-col justify-center items-center">
-       
-          <div className="mt-[80px]">
+          <div className="text-[#000000] font-[700] flex justify-center items-center">
+            janedoe@gmail.com{" "}
+            <span className="text-[#4C45EE] ml-[10px]">Edit</span>
+          </div>
+          <div className="flex justify-center items-center mt-[50px] verify-input ">
             <OTPInput
               value={otp}
               onChange={setOtp}
               onPaste={(e) => setOtp(e.clipboardData.getData("text"))} // Handle onPaste event
               numInputs={6}
-              renderSeparator={<span>-</span>}
               renderInput={(props) => <input {...props} />}
               inputStyle={"otp-input"}
             />
           </div>
-          <div className="flex justify-center items-center mt-[50px] space-x-2 cursor-pointer">
+          <div className="flex justify-center items-center mt-[30px] cursor-pointer ">
             {resendTimer > 0 ? (
-              <Text className="text-[#000]">
+              <Text className="text-[#000] text-[16px]">
                 Resend OTP in {resendTimer} sec
               </Text>
             ) : (
               <>
-                <RedoOutlined style={{ fontSize: "14px", color: "#000" }} />
-                <Text className="text-[#000]" onClick={handleResendOTP}>
+                <RedoOutlined style={{ fontSize: "15px", color: "#4C45EE" }} />
+                <Typography
+                  className="text-[16px] ml-[10px] "
+                  onClick={handleResendOTP}
+                >
                   Resend OTP
-                </Text>
+                </Typography>
               </>
             )}{" "}
-
           </div>
-
-            <Button size="large" className="bg-[#4C45EE] text-[white] w-[150px] mt-[30px]">
-                Submit
-            </Button>
-            </div>
+          <button
+            onClick={sendOtp}
+            type="submit"
+            className="w-full h-12 bg-[#4C45EE] mt-[55px] font-[700]  letter-spacing-normal text-[15px] text-white py-2 px-4 rounded-md"
+          >
+            Submit
+          </button>
         </div>
       </div>
     </>
