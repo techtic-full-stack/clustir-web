@@ -11,29 +11,41 @@ import maskedEmail from "../../helper/MaskedEmail";
 const { Text } = Typography;
 const VerifyOTP = () => {
   const [email, setEmail] = useState("");
-  const [confirm, setConfirm] = useState(false);
+  const [resendTimer, setResendTimer] = useState(0);
   const [otp, setOtp] = useState("");
   const [verifySuccess, setVerifySuccess] = useState(false);
+  const [loader, setLoader] = useState(false);
   const notificationContext = useNotification();
   const handleNotifications: any = notificationContext?.handleNotifications;
+
   useEffect(() => {
-    const storedEmail = localStorage.getItem("email");
+    const storedEmail = localStorage?.getItem("email");
     if (storedEmail) {
       setEmail(storedEmail);
     }
   }, []);
-  const sendOtp = async () => {
-    console.log("otp", otp);
-    const verifyOtp: any = await axiosInstance.post(
-      apiName.verifyUser,
-      JSON.stringify({ email, otp })
-    );
-    console.log("verifyOtp", verifyOtp);
-    setConfirm(true);
-    setVerifySuccess(true);
-  };
 
-  const [resendTimer, setResendTimer] = useState(0);
+  const sendOtp = async () => {
+    try {
+      setLoader(true);
+      const verifyOtp: any = await axiosInstance.patch(
+        apiName.verifyUser,
+        JSON.stringify({ email, otp })
+      );
+      if (verifyOtp?.status_code !== 200) {
+        handleNotifications("error", `${verifyOtp?.message}`, ``, 3);
+        setLoader(false);
+        return false;
+      } else {
+        handleNotifications("success", `${verifyOtp?.message}`, ``, 3);
+        setLoader(false);
+        setVerifySuccess(true);
+      }
+    } catch (error: any) {
+      console.log("error", error);
+      setLoader(false);
+    }
+  };
 
   useEffect(() => {
     let timerId: ReturnType<typeof setTimeout>;
@@ -51,22 +63,24 @@ const VerifyOTP = () => {
 
   const handleResendOTP = async () => {
     try {
-      // Simulate sending OTP and start the timer
-      const register: any = await axiosInstance.patch(
+      const sendOTP: any = await axiosInstance.patch(
         apiName.resendOTP,
-        JSON.stringify({ email: "team1@yopmail.com" })
+        JSON.stringify({ email: email })
       );
-      console.log("register :>> ", register);
-      if (register) {
+      if (sendOTP?.status_code == 200) {
         handleNotifications(
           "success",
-          `${maskedEmail(email)} ${register.message}`,
+          `${maskedEmail(email)} ${sendOTP?.message}`,
           ``,
           3
         );
+        setOtp("");
+      } else {
+        handleNotifications("error", sendOTP.message, ``, 3);
       }
       setResendTimer(15);
     } catch (error: any) {
+      console.log("error", error);
       handleNotifications("error", `${error?.message}`, ``, 3);
     }
   };
@@ -115,13 +129,15 @@ const VerifyOTP = () => {
               </>
             )}{" "}
           </div>
-          <button
+          <Button
             onClick={sendOtp}
-            type="submit"
-            className="w-full h-12 bg-[#4C45EE] mt-[55px] font-[700]  letter-spacing-normal text-[15px] text-white py-2 px-4 rounded-md"
+            htmlType="submit"
+            type="primary"
+            className="w-full h-12 !bg-[#4C45EE] hover:bg-[#4C45EE] mt-[55px]  font-[700]  letter-spacing-normal text-[15px] text-white py-2 px-4 rounded-md"
+            loading={loader}
           >
             Submit
-          </button>
+          </Button>
         </div>
       </div>
       <VerifySuccessModal

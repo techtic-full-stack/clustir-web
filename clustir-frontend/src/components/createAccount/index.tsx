@@ -57,8 +57,6 @@ function CreateAccount() {
       console.log("error", error);
       setLoader(false);
       setSubmitting(false);
-
-      // handleNotifications("error", `${error?.message}`, ``, 3);
     }
   };
 
