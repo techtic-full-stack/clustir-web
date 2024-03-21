@@ -77,7 +77,7 @@ function CreateAccount() {
                 </div>
                 <div className="mt-[30px] ">
                   <div className="mb-[20px]">
-                    <div className="font-[700] text-[18px] font-brother text-[#000000] mb-[7px]">
+                    <div className="font-[700] text-[16px] font-brother text-[#000000] mb-[7px]">
                       Email
                     </div>
                     <Field
@@ -92,32 +92,31 @@ function CreateAccount() {
                     />
                     <ErrorMessage
                       name="email"
-                      component="p"
-                      className="text-[#FD0000] text-[14px] pt-[4px]"
+                      component="div"
+                      className="text-red-500"
                     />
                   </div>
 
                   <div className="mb-[40px]">
-                    <div className="font-[700] text-[18px] font-brother text-[#000000] mb-[7px]">
+                    <div className="font-[700] text-[16px] font-brother text-[#000000] mb-[7px]">
                       Password
                     </div>
-                    <div style={{ position: "relative" }}>
-                      <Field
-                        name="password"
-                        as={Input.Password}
-                        className={`rounded-md border w-full ${
-                          touched.password && errors.password
-                            ? "border-red-500"
-                            : "border-gray-300"
-                        }  focus:outline-none focus:border-blue-500`}
-                      />
-                    
-                      <ErrorMessage
-                        name="password"
-                        component="p"
-                        className="text-[#FD0000] text-[14px] pt-[4px]"
-                      />
-                    </div>
+                    <Field
+                      placeholder="Enter your password"
+                      type="password"
+                      name="password"
+                      as={Input.Password}
+                      className={`px-3 !py-0 rounded-md border w-full ${
+                        touched.password && errors.password
+                          ? "border-red-500"
+                          : "border-gray-300"
+                      } focus:outline-none focus:border-blue-500`}
+                    />
+                    <ErrorMessage
+                      name="password"
+                      component="div"
+                      className="text-red-500"
+                    />
                   </div>
                   <Button
                     htmlType="submit"
@@ -144,7 +143,7 @@ function CreateAccount() {
                     <div className="text-[#000000] text-[14px] flex justify-center items-center  mt-[30px]">
                       Have an business account?{" "}
                       <span
-                        className="text-[#000000] ml-[5px] cursor-pointer font-[500] text-[14px]"
+                        className="text-[#000000] ml-[5px] cursor-pointer font-[600] text-[14px]"
                         onClick={() => router.push("/login")}
                       >
                         Login
