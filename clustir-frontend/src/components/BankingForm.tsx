@@ -5,21 +5,21 @@ import * as Yup from "yup";
 import { ErrorMessage } from "formik";
 
 interface FormValues {
-  bankName: string | undefined;
-  routing: string;
-  ein: string;
+  bankingAccount: string | undefined;
+  routingNumber: string;
+  einNumber: string;
 }
 
 const initialValues = {
-  bankName: "",
-  routing: "",
-  ein: "",
+  bankingAccount: "",
+  routingNumber: "",
+  einNumber: "",
 };
 
 const validationSchema = Yup.object().shape({
-  bankName: Yup.string().required("Banking account is required"),
-  routing: Yup.string().required("Routing is required"),
-  ein: Yup.string().required("EIN is required"),
+  bankingAccount: Yup.string().required("Banking account is required"),
+  routingNumber: Yup.string().required("Routing is required"),
+  einNumber: Yup.string().required("EIN is required"),
 });
 const BankingForm = ({
     OnBoardData,
@@ -31,6 +31,7 @@ const BankingForm = ({
   }) => {
   const onSubmit = (values: FormValues) => {
     try {
+      setStep();
       setOnBoardData(...OnBoardData, values);
     } catch (error) {}
   };
@@ -65,12 +66,12 @@ const BankingForm = ({
                     <Field
                       type="text"
                       size="large"
-                      id="bankName"
-                      name="bankName"
+                      id="bankingAccount"
+                      name="bankingAccount"
                       as={Input}
                     />
                     <ErrorMessage
-                      name="bankName"
+                      name="bankingAccount"
                       component="div"
                       className="text-red-500"
                     />
@@ -80,17 +81,17 @@ const BankingForm = ({
                 <Row className="my-[14] sm:mb-5">
                   <Col span={24} className="mb-5 sm:mb-0">
                     <div className="label">
-                      Routing #<span className="text-[red]">*</span>
+                      routingNumber #<span className="text-[red]">*</span>
                     </div>
                     <Field
                       type="text"
                       size="large"
-                      id="routing"
-                      name="routing"
+                      id="routingNumber"
+                      name="routingNumber"
                       as={Input}
                     />
                     <ErrorMessage
-                      name="routing"
+                      name="routingNumber"
                       component="div"
                       className="text-red-500"
                     />
@@ -105,12 +106,12 @@ const BankingForm = ({
                     <Field
                       type="text"
                       size="large"
-                      id="ein"
-                      name="ein"
+                      id="einNumber"
+                      name="einNumber"
                       as={Input}
                     />
                     <ErrorMessage
-                      name="ein"
+                      name="einNumber"
                       component="div"
                       className="text-red-500"
                     />

@@ -7,9 +7,9 @@ import { ErrorMessage } from "formik";
 interface FormValues {
   businessName: string | undefined;
   contactName: string;
-  employerID: string;
+  employerId: string;
   title: string;
-  websiteURL: string;
+  websiteUrl: string;
   businessStreetAddress: string;
   aptSteBldg?: string; // optional field
   zipCode: string;
@@ -21,9 +21,9 @@ interface FormValues {
 const initialValues = {
   businessName: "",
   contactName: "",
-  employerID: "",
+  employerId: "",
   title: "",
-  websiteURL: "",
+  websiteUrl: "",
   businessStreetAddress: "",
   aptSteBldg: "",
   zipCode: "",
@@ -35,9 +35,9 @@ const initialValues = {
 const validationSchema = Yup.object().shape({
   businessName: Yup.string().required("Business Name is required"),
   contactName: Yup.string().required("Contact Name is required"),
-  employerID: Yup.string().required("Employee ID is required"),
+  employerId: Yup.string().required("Employee ID is required"),
   title: Yup.string().required("Title is required"),
-  websiteURL: Yup.string().required("Website URL is required"),
+  websiteUrl: Yup.string().required("Website URL is required"),
   businessStreetAddress: Yup.string().required(
     "Business Street Address is required"
   ),
@@ -60,10 +60,11 @@ const BusinessContactInfo = ({
 }) => {
   const onSubmit = (values: FormValues) => {
     try {
-      setStep(step + 1);
       setOnBoardData(...OnBoardData, values);
+      setStep();
     } catch (error) {}
   };
+
   return (
     <>
       <h2 className="text-black mb-6 !text-[24px] label">
@@ -129,12 +130,12 @@ const BusinessContactInfo = ({
                     <Field
                       type="text"
                       size="large"
-                      id="employerID"
-                      name="employerID"
+                      id="employerId"
+                      name="employerId"
                       as={Input}
                     />
                     <ErrorMessage
-                      name="employerID"
+                      name="employerId"
                       component="div"
                       className="text-red-500"
                     />
@@ -168,12 +169,12 @@ const BusinessContactInfo = ({
                     <Field
                       type="text"
                       size="large"
-                      id="websiteURL"
-                      name="websiteURL"
+                      id="websiteUrl"
+                      name="websiteUrl"
                       as={Input}
                     />
                     <ErrorMessage
-                      name="websiteURL"
+                      name="websiteUrl"
                       component="div"
                       className="text-red-500"
                     />
