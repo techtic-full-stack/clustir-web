@@ -4,6 +4,8 @@ import { Typography } from "antd";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useRouter } from "next/router";
+import axiosInstance from "@/interceptors/Axios";
+import { apiName } from "@/interceptors/apiName";
 const { Paragraph, Text } = Typography;
 
 const validationSchema = Yup.object().shape({
@@ -28,8 +30,13 @@ function CreateAccount() {
     password: "",
   };
 
-  const onSubmit = (values: any) => {
+  const onSubmit = async(values: any) => {
     setSubmitting(true);
+    const register = await axiosInstance.post(apiName.signUp, JSON.stringify({values}), {
+      headers: {
+          'Content-Type': 'multipart/form-data', // Set the content type to 'multipart/form-data'
+      },
+  });
     setTimeout(() => {
       setSubmitting(false);
     }, 5000);
