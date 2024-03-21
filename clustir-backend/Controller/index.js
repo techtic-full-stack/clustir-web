@@ -67,6 +67,7 @@ const register = async (req, res) => {
 const verifyUser = async (req, res) => {
   try {
     const { email, otp } = req.body;
+    if (!email || !otp) return res.status(400).json({ status_code: 400, message: 'Email and OTP are required' });
 
     const userDetail = await UserModel.findOne({ email })
     if (!userDetail) {
@@ -173,6 +174,7 @@ const addMurchantBusiness = async (req, res) => {
       case 2:
         user[0].marchantBanking = req.body;
         await user[0].save();
+        await UserModel.updateOne({ email: decoded.email }, { is_onBoard: true });
         return res.status(200).json({ status_code: 200, message: 'Banking Info added successfully' });
       default:
         return res.status(400).json({ status_code: 400, message: 'Invalid step' });
