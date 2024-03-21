@@ -29,6 +29,12 @@ axiosInstance.interceptors.response.use(
     return response.data;
   },
   async (error: any) => {
+    console.log('error.response.data :>> ', error.response.data);
+    if(error.response.data.status_code === 403 ){
+      Router.push("/login");
+      localStorage.clear();
+    }
+
     return error.response.data;
   }
 );

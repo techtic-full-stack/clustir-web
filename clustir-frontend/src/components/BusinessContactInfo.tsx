@@ -35,29 +35,28 @@ const initialValues = {
 
 const BusinessContactInfo = ({
   OnBoardData,
-  setOnBoardData,
-  step,
   setStep,
+  prevStep,
 }: {
   OnBoardData: any;
-  setOnBoardData: any;
-  step: any;
   setStep: any;
+  prevStep: any;
 }) => {
-  const onSubmit = (values: FormValues) => {
+  const onSubmit = (values: any) => {
     try {
-      setOnBoardData(...OnBoardData, values);
-      setStep();
+      // setOnBoardData({...OnBoardData, values});
+
+      setStep({ ...OnBoardData, ...values });
     } catch (error) {}
   };
 
   return (
     <>
-      <h2 className="text-black mb-6 !text-[24px] label">
+      <h2 className="text-black !mb-[20px]  !text-[24px] label">
         Business Contact Info
       </h2>
       <Formik
-        initialValues={initialValues}
+        initialValues={OnBoardData || initialValues}
         validationSchema={BusinessContactInfoSchema}
         onSubmit={onSubmit}
         enableReinitialize
@@ -65,8 +64,8 @@ const BusinessContactInfo = ({
         {({ isSubmitting, errors }) => {
           return (
             <Form>
-              <Card className="flex flex-col bg-[#FFFFFF] p-[5px] rounded-lg w-[862px]">
-                <div className="mb-[25px] label">CONTACT INFORMATION </div>
+              <Card className="flex flex-col bg-[#FFFFFF] p-[5px] rounded-lg w-[862px] px-[70px]">
+                <div className="mb-[25px] label ">CONTACT INFORMATION </div>
 
                 <Row className="my-[14] sm:mb-5">
                   <Col span={24} className="mb-5 sm:mb-0">
@@ -291,6 +290,7 @@ const BusinessContactInfo = ({
               </Card>
               <div className="flex justify-end py-[20px]">
                 <Button
+                  onClick={prevStep}
                   type="default"
                   className="text-[#4C45EE]  border-[#4C45EE] mr-[10px] w-[100px] h-[40px]"
                 >

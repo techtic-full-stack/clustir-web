@@ -19,26 +19,23 @@ const initialValues = {
 
 const BankingForm = ({
   OnBoardData,
-  setOnBoardData,
-  step,
   setStep,
+  prevStep,
 }: {
   OnBoardData: any;
-  setOnBoardData: any;
-  step: any;
   setStep: any;
+  prevStep: any;
 }) => {
-  const onSubmit = (values: FormValues) => {
+  const onSubmit = (values: any) => {
     try {
-      setStep();
-      setOnBoardData(...OnBoardData, values);
+      setStep({ ...OnBoardData, ...values });
     } catch (error) {}
   };
   return (
     <>
       <h2 className="text-black !mb-[20px] !text-[25px] label">Banking</h2>
       <Formik
-        initialValues={initialValues}
+        initialValues={OnBoardData || initialValues}
         validationSchema={bankingSchema}
         onSubmit={onSubmit}
         enableReinitialize
@@ -46,7 +43,7 @@ const BankingForm = ({
         {({ isSubmitting, errors }) => {
           return (
             <Form>
-              <Card className="flex flex-col bg-[#FFFFFF] p-[5px] rounded-lg w-[862px]">
+              <Card className="flex flex-col bg-[#FFFFFF] p-[5px] rounded-lg w-[862px] px-[70px]">
                 <div className="text-[18px] uppercase label">Banking Info</div>
                 <div className="text-[12px] my-[10px]">
                   The banking information provided is used for Clustir Payouts
@@ -120,6 +117,7 @@ const BankingForm = ({
               <div className="flex justify-end py-[20px]">
                 <Button
                   type="default"
+                  onClick={prevStep}
                   className="text-[#4C45EE]  border-[#4C45EE] mr-[10px] w-[100px] h-[40px]"
                 >
                   Go back

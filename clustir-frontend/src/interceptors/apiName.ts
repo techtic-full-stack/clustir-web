@@ -4,4 +4,5 @@ export const apiName = {
   verifyUser: "/user/verifyUser",
   login:"/user/login",
   addBusiness:"/user/addBusiness",
+  getBusiness:"user/getUserById/",
 };
