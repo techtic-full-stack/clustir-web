@@ -1,15 +1,9 @@
-import { Col, Row, Input, Card, Button } from "antd";
-import { useState } from "react";
-import { Field, Formik, Form } from "formik";
+import { Button, Card, Col, Input, Row } from "antd";
+import {  Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import { ErrorMessage } from "formik";
 import { bankingSchema } from "@/utils/formik/schema";
 
-interface FormValues {
-  bankingAccount: string | undefined;
-  routingNumber: string;
-  einNumber: string;
-}
 
 const initialValues = {
   bankingAccount: "",

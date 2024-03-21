@@ -1,9 +1,6 @@
-import { Col, Row, Input, Card, Button } from "antd";
-import { useState } from "react";
-import { Field, Formik, Form } from "formik";
-import * as Yup from "yup";
-import { ErrorMessage } from "formik";
 import { BusinessContactInfoSchema } from "@/utils/formik/schema";
+import { Button, Card, Col, Input, Row } from "antd";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 
 interface FormValues {
   businessName: string | undefined;
@@ -44,8 +41,6 @@ const BusinessContactInfo = ({
 }) => {
   const onSubmit = (values: any) => {
     try {
-      // setOnBoardData({...OnBoardData, values});
-
       setStep({ ...OnBoardData, ...values });
     } catch (error) {}
   };

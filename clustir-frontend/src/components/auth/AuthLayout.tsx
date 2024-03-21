@@ -5,6 +5,9 @@ type LayoutWrapperType = {
   children?: ReactNode;
 };
 
+/**
+ * Renders the layout for the authentication pages.
+ */
 const Layout = ({ children }: LayoutWrapperType) => {
   return (
     <div className="min-h-screen flex flex-col justify-between bg-[#F8F8F8]">
