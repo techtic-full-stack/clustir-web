@@ -6,6 +6,12 @@ import { useRouter } from "next/router";
   type LayoutWrapperType = {
     children?: ReactNode;
   };
+  /**
+   * Renders the layout component.
+   * 
+   * @param {LayoutWrapperType} props - The component props.
+   * @returns {JSX.Element} The rendered layout component.
+   */
   const Layout = ({ children }: LayoutWrapperType) => {
     const router = useRouter();
 
@@ -15,6 +21,7 @@ import { useRouter } from "next/router";
         router.push('/login');
       }
     }, [router]);
+
     return (
       <div className="min-h-screen flex flex-col">
         <div className="bg-[#FFFFFF]">
