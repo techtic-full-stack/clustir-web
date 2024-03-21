@@ -2,15 +2,18 @@ import { RedoOutlined } from "@ant-design/icons";
 import { Button, Typography } from "antd";
 import { useEffect, useState } from "react";
 import OTPInput from "react-otp-input";
+import VerifySuccessModal from "./VerifyModal";
 
 const { Text } = Typography;
 const VerifyOTP = () => {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState("janedoe@gmail.com");
   const [confirm, setConfirm] = useState(false);
   const [otp, setOtp] = useState("");
+  const [verifySuccess,setVerifySuccess] = useState(false);
 
   const sendOtp = () => {
     setConfirm(true);
+    setVerifySuccess(true);
   };
 
   const [resendTimer, setResendTimer] = useState(0);
@@ -46,7 +49,7 @@ const VerifyOTP = () => {
             We sent you a code to verify your account at
           </div>
           <div className="text-[#000000] font-[700] flex justify-center items-center">
-            janedoe@gmail.com{" "}
+            {email}
             <span className="text-[#4C45EE] ml-[10px] cursor-pointer">
               Edit
             </span>
@@ -73,7 +76,7 @@ const VerifyOTP = () => {
                   className="text-[16px] ml-[10px] "
                   onClick={handleResendOTP}
                 >
-                  Resend OTP
+                  Resend code
                 </Typography>
               </>
             )}{" "}
@@ -87,6 +90,7 @@ const VerifyOTP = () => {
           </button>
         </div>
       </div>
+        <VerifySuccessModal onClose={()=>setVerifySuccess(!verifySuccess)} visible={verifySuccess} key={1} />
     </>
   );
 };
