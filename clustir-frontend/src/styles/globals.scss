@@ -16,6 +16,18 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
+@font-face {
+  font-family: 'Brother1816-Bold';
+  src: url('./fonts/Brother1816-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Brother1816-Regular';
+  src: url('./fonts/Brother1816-Regular.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
 
 body {
   color: rgb(var(--foreground-rgb));

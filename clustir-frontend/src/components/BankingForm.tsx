@@ -22,24 +22,24 @@ const validationSchema = Yup.object().shape({
   einNumber: Yup.string().required("EIN is required"),
 });
 const BankingForm = ({
-    OnBoardData,
-    setOnBoardData,step,setStep
-  }: {
-    OnBoardData: any;
-    setOnBoardData: any;
-    step: any,setStep: any;
-  }) => {
-  const onSubmit = (values: FormValues) => {
+  OnBoardData,
+  setStep,
+  prevStep,
+}: {
+  OnBoardData: any;
+  setStep: any;
+  prevStep: any;
+}) => {
+  const onSubmit = (values: any) => {
     try {
-      setStep();
-      setOnBoardData(...OnBoardData, values);
+      setStep({ ...OnBoardData, ...values });
     } catch (error) {}
   };
   return (
     <>
       <h2 className="text-black !mb-[20px] !text-[25px] label">Banking</h2>
       <Formik
-        initialValues={initialValues}
+        initialValues={OnBoardData || initialValues}
         validationSchema={validationSchema}
         onSubmit={onSubmit}
         enableReinitialize
@@ -117,11 +117,11 @@ const BankingForm = ({
                     />
                   </Col>
                 </Row>
-                
               </Card>
               <div className="flex justify-end py-[20px]">
                 <Button
                   type="default"
+                  onClick={prevStep}
                   className="text-[#4C45EE]  border-[#4C45EE] mr-[10px] w-[100px] h-[40px]"
                 >
                   Go back

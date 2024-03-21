@@ -42,7 +42,6 @@ const VerifyOTP = () => {
         setVerifySuccess(true);
       }
     } catch (error: any) {
-      console.log("error", error);
       setLoader(false);
     }
   };

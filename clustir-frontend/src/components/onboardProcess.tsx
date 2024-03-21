@@ -1,35 +1,53 @@
-import { useCallback, useState } from "react";
-import BusinessContactInfo from "./BusinessContactInfo";
-import BankingForm from "./BankingForm";
 import axiosInstance from "@/interceptors/Axios";
 import { apiName } from "@/interceptors/apiName";
+import { useEffect, useState } from "react";
+import BankingForm from "./BankingForm";
+import BusinessContactInfo from "./BusinessContactInfo";
+import PaymentCheckout from "./PaymentCheckout";
+import { useRouter } from "next/router";
 
 const OnboardProcess = () => {
   const [step, setStep] = useState(1);
   const [OnBoardData, setOnBoardData] = useState({});
-  console.log('step :>> ', step);
-  
-  const handleStep = useCallback(async () => {
+  const router = useRouter();
+  const getBusinessData = async () => {
     try {
-      console.log('OnBoardData :>> ', OnBoardData);
-      // const register: any = await axiosInstance.post(
-      //   apiName.addBusiness,
-      //   JSON.stringify({ ...OnBoardData })
-      // );
-      // console.log('register :>> ', register);
+      let userData = JSON.parse(localStorage.getItem("userData") as string);
+      const getData: any = await axiosInstance.get(
+        `${apiName.getBusiness}${userData._id}`,
+      );
+      setOnBoardData({...getData.data.merchantBusiness,...getData.data.marchantBanking})
+    } catch (error) {
+    }
+  }
+  useEffect(()=>{
+    getBusinessData()
+  },[])
+  const handleStep = async (data:any) => {
+    try {
+      const register: any = await axiosInstance.post(
+        `${apiName.addBusiness}?step=${step}`,
+        JSON.stringify({ ...data })
+      );
       setStep(step + 1);
     } catch (error) {
       
     }
-  }, [OnBoardData, setStep, step]);
+  };
+  const prevStep=()=>{
+    if(step>1){
+      setStep(step-1)
+    } 
+  }
   return (
     <>
       {step === 1 && (
-        <BusinessContactInfo setOnBoardData={setOnBoardData} OnBoardData={OnBoardData} step={step} setStep={()=>handleStep()} />
+        <BusinessContactInfo  OnBoardData={OnBoardData}  setStep={(data: any)=>handleStep(data)} prevStep={prevStep} />
       )}
       {step === 2 && (
-        <BankingForm setOnBoardData={setOnBoardData} OnBoardData={OnBoardData} step={step} setStep={handleStep} />
+        <BankingForm  OnBoardData={OnBoardData} setStep={(data: any)=>handleStep(data)}  prevStep={prevStep}/>
       )}
+      {step === 3 && (<PaymentCheckout OnBoardData={OnBoardData} setStep={(data: any)=>handleStep(data)}   />)}
     </>
   );
 };

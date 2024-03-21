@@ -49,19 +49,18 @@ const validationSchema = Yup.object().shape({
 });
 const BusinessContactInfo = ({
   OnBoardData,
-  setOnBoardData,
-  step,
   setStep,
+  prevStep
 }: {
   OnBoardData: any;
-  setOnBoardData: any;
-  step: any;
   setStep: any;
+  prevStep:any
 }) => {
-  const onSubmit = (values: FormValues) => {
+  const onSubmit = (values: any) => {
     try {
-      setOnBoardData(...OnBoardData, values);
-      setStep();
+      // setOnBoardData({...OnBoardData, values});
+      
+      setStep({...OnBoardData, ...values});
     } catch (error) {}
   };
 
@@ -71,7 +70,7 @@ const BusinessContactInfo = ({
         Business Contact Info
       </h2>
       <Formik
-        initialValues={initialValues}
+        initialValues={OnBoardData || initialValues}
         validationSchema={validationSchema}
         onSubmit={onSubmit}
         enableReinitialize
@@ -305,6 +304,7 @@ const BusinessContactInfo = ({
               </Card>
               <div className="flex justify-end py-[20px]">
                 <Button
+                onClick={prevStep}
                   type="default"
                   className="text-[#4C45EE]  border-[#4C45EE] mr-[10px] w-[100px] h-[40px]"
                 >
