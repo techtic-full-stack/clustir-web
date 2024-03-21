@@ -132,3 +132,4 @@ dist
 
 
 /clustir-frontend/node_modules
+/clustir-frontend/.env
