@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Button, Typography, Input } from "antd";
+import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
+import { Button, Input, Typography } from "antd";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useRouter } from "next/router";
 import axiosInstance from "@/interceptors/Axios";
@@ -10,12 +11,12 @@ import { useNotification } from "./Notification";
 import { createAccountSchema } from "@/utils/formik/schema";
 
 function CreateAccount() {
+  const [showPassword, setShowPassword] = useState<boolean>(false);
   const [submitting, setSubmitting] = useState(false);
   const [loader, setLoader] = useState(false);
   const router = useRouter();
   const notificationContext = useNotification();
   const handleNotifications: any = notificationContext?.handleNotifications;
-
   const initialValues = {
     email: "",
     password: "",
@@ -41,9 +42,14 @@ function CreateAccount() {
         }, 1000);
       }
     } catch (error: any) {
+      console.log("error", error);
       setLoader(false);
       setSubmitting(false);
     }
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevState) => !prevState);
   };
 
   return (
@@ -77,6 +83,7 @@ function CreateAccount() {
                     <Field
                       type="email"
                       name="email"
+                      as={Input}
                       className={`h-12 px-4 py-2 rounded-md border w-full ${
                         touched.email && errors.email
                           ? "border-red-500"
@@ -96,25 +103,15 @@ function CreateAccount() {
                     </div>
                     <div style={{ position: "relative" }}>
                       <Field
-                        type={showPassword ? "text" : "password"}
                         name="password"
-                        className={`h-12 px-4 py-2 rounded-md border w-full ${
+                        as={Input.Password}
+                        className={`rounded-md border w-full ${
                           touched.password && errors.password
                             ? "border-red-500"
                             : "border-gray-300"
                         }  focus:outline-none focus:border-blue-500`}
                       />
-                      <button
-                        type="button"
-                        onClick={togglePasswordVisibility}
-                        className="absolute top-4 bottom-0 right-0 pr-4 flex  focus:outline-none"
-                      >
-                        {showPassword ? (
-                          <EyeInvisibleOutlined />
-                        ) : (
-                          <EyeTwoTone />
-                        )}
-                      </button>
+                    
                       <ErrorMessage
                         name="password"
                         component="p"
@@ -144,7 +141,7 @@ function CreateAccount() {
                       </span>
                     </Paragraph>
 
-                    <div className="text-[#000000] text-[14px] flex justify-center items-center  mt-[25px] pb-[10px]">
+                    <div className="text-[#000000] text-[14px] flex justify-center items-center  mt-[30px]">
                       Have an business account?{" "}
                       <span
                         className="text-[#000000] ml-[5px] cursor-pointer font-[500] text-[14px]"
