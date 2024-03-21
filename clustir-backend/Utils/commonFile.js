@@ -5,17 +5,17 @@ const jwt = require('jsonwebtoken');
 const sendOtpAndExpire = (email, otp, UserModel) => {
     // Send the OTP to the email
     const transporter = nodemailer.createTransport({
-        host: process.env.MAIL_HOST,
-        port: 587,
+        service: process.env.MAIL_SERVICE, //"gmail"
+        host: process.env.MAIL_HOST, //"smtp.gmail.com",
+        port: process.env.MAIL_PORT, //587,
+        secure: true,
         auth: {
-            user: process.env.MAIL_USERNAME,
-            pass: process.env.MAIL_PASSWORD,
-        }
+            user: process.env.MAIL_USERNAME, //username,
+            pass: process.env.MAIL_PASSWORD, //emailPwd,
+        },
     });
-
-
     const mailOptions = {
-        from: process.env.MAIL_FROM, // replace with your email
+        from: process.env.MAIL_FROM_EMAIL, //fromEmail,
         to: email,
         subject: process.env.MAIL_SUBJECT,
         text: `Your OTP is ${otp}`,
