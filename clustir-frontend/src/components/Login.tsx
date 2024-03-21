@@ -5,6 +5,8 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import * as Yup from "yup";
+import { useNotification } from "./Notification";
+import Loader from "./Loader/Loader";
 
 const { Text } = Typography;
 
@@ -22,7 +24,10 @@ const Login = () => {
   const [submitting, setSubmitting] = useState(false);
   const router = useRouter();
   const [loader, setLoader] = useState(false);
-  const [error, setError] = useState("");
+  // const [error, setError] = useState("");
+  const notificationContext = useNotification();
+  const handleNotifications: any = notificationContext?.handleNotifications;
+
   useEffect(() => {
     if (localStorage.getItem("token")) {
       let checkOnBoard = JSON.parse(
@@ -35,32 +40,37 @@ const Login = () => {
       }
     }
   }, [router]);
+
   const loginSubmit = async (values: any) => {
     try {
+      setLoader(true);
       const login: any = await axiosInstance.post(
         apiName.login,
         JSON.stringify({ ...values })
       );
       if (login?.status_code !== 200) {
-        setError(login?.message);
+        // setError(login?.message);
+        handleNotifications("error", `${login?.message}`, ``, 3);
         setLoader(false);
         return false;
       } else {
-        localStorage.setItem("token", login.token);
-        localStorage.setItem("userData", JSON.stringify(login.response));
         setSubmitting(true);
+
         setTimeout(() => {
-          setSubmitting(false);
-        }, 2000);
-        if (login?.response?.is_onBoard === false) {
-          router.push("/onboard");
-        } else {
-          router.push("/dashboard");
-        }
+          if (login?.response?.is_onBoard === false) {
+            router.push("/onboard");
+          } else {
+            router.push("/dashboard");
+          }
+          localStorage.setItem("token", login.token);
+          localStorage.setItem("userData", JSON.stringify(login.response));
+          handleNotifications("success", `Login successful`, ``, 3);
+        }, 1000);
       }
     } catch (error: any) {
       // setError(error?.message);
       setLoader(false);
+      setSubmitting(false);
     }
   };
 
@@ -71,6 +81,7 @@ const Login = () => {
           <div className="bg-[#FFFFFF] h-[64vh]">
             <Text className="font-bold   top-40 text-[20px]">
               Success! Hold tight
+              <Loader />
             </Text>
           </div>
         </>
@@ -130,13 +141,13 @@ const Login = () => {
                       className="text-[#FD0000]"
                     />
                   </div>
-                  {error && (
+                  {/* {error && (
                     <p className="text-red-500 my-[20px] font-500">{error}</p>
-                  )}
+                  )} */}
                   <Button
                     htmlType="submit"
-                    className="w-full h-12 bg-[#4C45EE]  font-[700]  letter-spacing-normal text-[15px] text-white py-2 px-4 rounded-md"
-                    disabled={isSubmitting || loader}
+                    type="primary"
+                    className="w-full h-12 !bg-[#4C45EE] hover:bg-[#4C45EE]  font-[700]  letter-spacing-normal text-[15px] text-white py-2 px-4 rounded-md"
                     loading={loader}
                   >
                     Login
