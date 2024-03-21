@@ -93,7 +93,7 @@ const Login = () => {
                 </div>
                 <div className="mt-[30px] ">
                   <div className="mb-[20px]">
-                    <div className="font-[700] text-[18px] font-brother text-[#000000] mb-[7px]">
+                    <div className="font-[700] text-[16px] font-brother text-[#000000] mb-[7px]">
                       Email
                     </div>
                     <Field
@@ -110,12 +110,12 @@ const Login = () => {
                     <ErrorMessage
                       name="email"
                       component="p"
-                      className="text-[#FD0000]"
+                      className="text-[#FD0000] text-[14px] pt-[4px]"
                     />
                   </div>
 
                   <div className="mb-[40px]">
-                    <div className="font-[700] text-[18px] font-brother text-[#000000] mb-[7px]">
+                    <div className="font-[700] text-[16px] font-brother text-[#000000] mb-[7px]">
                       Password
                     </div>
                     <Field
@@ -132,7 +132,7 @@ const Login = () => {
                     <ErrorMessage
                       name="password"
                       component="p"
-                      className="text-[#FD0000]"
+                      className="text-[#FD0000] text-[14px] pt-[4px]"
                     />
                   </div>
                   {/* {error && (
@@ -147,12 +147,12 @@ const Login = () => {
                     Login
                   </Button>
 
-                  <div className="mt-[30px] w-[400px] ">
+                  <div className="mt-[25px] w-[400px] ">
                     <span className=" text-[#4C45EE] text-[16px] font-[500] flex justify-center items-center">
                       Forgot Password ?
                     </span>
 
-                    <div className="text-[#000000] text-[14px] flex justify-center items-center  mt-[30px]">
+                    <div className="text-[#000000] text-[14px] flex justify-center items-center  mt-[20px]">
                       Don’t have an account?
                       <span
                         className="text-[#000000] cursor-pointer ml-[5px] font-[500] text-[14px]"

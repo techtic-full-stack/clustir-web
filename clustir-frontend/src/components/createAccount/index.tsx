@@ -77,7 +77,7 @@ function CreateAccount() {
                 </div>
                 <div className="mt-[30px] ">
                   <div className="mb-[20px]">
-                    <div className="font-[700] text-[18px] font-brother text-[#000000] mb-[7px]">
+                    <div className="font-[700] text-[16px] font-brother text-[#000000] mb-[7px]">
                       Email
                     </div>
                     <Field
@@ -97,7 +97,7 @@ function CreateAccount() {
                   </div>
 
                   <div className="mb-[40px]">
-                    <div className="font-[700] text-[18px] font-brother text-[#000000] mb-[7px]">
+                    <div className="font-[700] text-[16px] font-brother text-[#000000] mb-[7px]">
                       Password
                     </div>
                     <div style={{ position: "relative" }}>
@@ -116,9 +116,9 @@ function CreateAccount() {
                         className="absolute top-4 bottom-0 right-0 pr-4 flex  focus:outline-none"
                       >
                         {showPassword ? (
-                          <EyeInvisibleOutlined />
-                        ) : (
                           <EyeTwoTone />
+                        ) : (
+                          <EyeInvisibleOutlined />
                         )}
                       </button>
                       <ErrorMessage
