@@ -48,11 +48,10 @@ function CreateAccount() {
       } else {
         setSubmitting(true);
         setTimeout(() => {
-          setSubmitting(false);
-        }, 3000);
-        localStorage.setItem("email", values.email);
-        router.push("/verify");
-        setLoader(false);
+          router.push("/verify");
+          localStorage.setItem("email", values.email);
+          handleNotifications("success", `${register?.message}`, ``, 3);
+        }, 1000);
       }
     } catch (error: any) {
       console.log("error", error);
