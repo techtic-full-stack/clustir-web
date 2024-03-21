@@ -36,15 +36,6 @@ const register = async (req, res) => {
           });
           newUser.save()
             .then((savedUser) => {
-              // generate jwt token
-              let token = jwt.sign(
-                {
-                  email: savedUser.email,
-                  id: savedUser._id,
-                },
-                `key23KFUWqdi789`
-              );
-
               return res.status(201).json({
                 status_code: 200,
                 message: "User registered successfully",
@@ -143,7 +134,7 @@ const loginUser = async (req, res) => {
         email: user.email,
         id: user._id,
       },
-      'key23KFUWqdi789', // replace with your secret key
+      process.env.JWT_SECRET, // replace with your secret key
       { expiresIn: '1h' } // token expires in 1 hour
     );
 
@@ -164,7 +155,7 @@ const addMurchantBusiness = async (req, res) => {
 
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
-    const decoded = jwt.verify(token, 'key23KFUWqdi789'); // replace with your secret key
+    const decoded = jwt.verify(token, process.env.JWT_SECRET); // replace with your secret key
 
     if (!decoded) {
       return res.status(403).json({ status_code: 403, message: 'Unauthorized' });
@@ -193,5 +184,17 @@ const addMurchantBusiness = async (req, res) => {
   }
 }
 
+const getUserById = async (req, res) => {
+  try {
+    const user = await UserModel.findById(req.params.id);
+    if (!user) {
+      return res.status(404).json({ status_code: 404, message: 'User not found' });
+    }
+    return res.status(200).json({ status_code: 200, data: user });
+  } catch (error) {
+    console.log({ error })
+    return res.status(500).json({ status_code: 500, error: 'An error occurred' });
+  }
+}
 
-module.exports = { register, verifyUser, resendOtp, loginUser, addMurchantBusiness }
+module.exports = { register, verifyUser, resendOtp, loginUser, addMurchantBusiness, getUserById }
