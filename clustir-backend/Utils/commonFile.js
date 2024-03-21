@@ -5,19 +5,19 @@ const jwt = require('jsonwebtoken');
 const sendOtpAndExpire = (email, otp, UserModel) => {
     // Send the OTP to the email
     const transporter = nodemailer.createTransport({
-        host: 'smtp.ethereal.email',
+        host: process.env.MAIL_HOST,
         port: 587,
         auth: {
-            user: 'vivian.hahn@ethereal.email',
-            pass: 'MrYjFTTMdqbwsuCh2h'
+            user: process.env.MAIL_USERNAME,
+            pass: process.env.MAIL_PASSWORD,
         }
     });
 
 
     const mailOptions = {
-        from: 'admin@gmail.com', // replace with your email
+        from: process.env.MAIL_FROM, // replace with your email
         to: email,
-        subject: 'Your OTP',
+        subject: process.env.MAIL_SUBJECT,
         text: `Your OTP is ${otp}`,
     };
 
@@ -47,7 +47,7 @@ const authenticateToken = (req, res, next) => {
 
     if (token == null) { return res.sendStatus(401); } // if there isn't any token
 
-    jwt.verify(token, 'key23KFUWqdi789', (err, user) => { // replace with your secret key
+    jwt.verify(token, process.env.JWT_SECRET, (err, user) => { // replace with your secret key
         if (err) {
             console.log({ err });
             if (err instanceof jwt.JsonWebTokenError) {
