@@ -1,26 +1,24 @@
-import React, { useState } from "react";
-import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
-import { Button, Input, Typography } from "antd";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useRouter } from "next/router";
 import axiosInstance from "@/interceptors/Axios";
 import { apiName } from "@/interceptors/apiName";
-const { Paragraph, Text } = Typography;
+import { createAccountSchema } from "@/utils/formik/schema";
+import { Button, Input, Typography } from "antd";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import { useRouter } from "next/router";
+import { useState } from "react";
 import Loader from "./Loader/Loader";
 import { useNotification } from "./Notification";
-import { createAccountSchema } from "@/utils/formik/schema";
-
+const { Paragraph, Text } = Typography;
+const initialValues = {
+  email: "",
+  password: "",
+};
 function CreateAccount() {
-  const [showPassword, setShowPassword] = useState<boolean>(false);
   const [submitting, setSubmitting] = useState(false);
   const [loader, setLoader] = useState(false);
   const router = useRouter();
   const notificationContext = useNotification();
   const handleNotifications: any = notificationContext?.handleNotifications;
-  const initialValues = {
-    email: "",
-    password: "",
-  };
+ 
 
   const onSubmit = async (values: any) => {
     try {
@@ -42,15 +40,14 @@ function CreateAccount() {
         }, 1000);
       }
     } catch (error: any) {
-      console.log("error", error);
       setLoader(false);
       setSubmitting(false);
     }
+    finally {
+      setLoader(false);
+    }
   };
 
-  const togglePasswordVisibility = () => {
-    setShowPassword((prevState) => !prevState);
-  };
 
   return (
     <div className=" flex justify-center items-center p-[30px]">

@@ -62,20 +62,16 @@ const VerifyOTP = () => {
 
   const handleResendOTP = async () => {
     try {
-      const sendOTP: any = await axiosInstance.patch(
-        apiName.resendOTP,
-        JSON.stringify({ email: email })
+      const response = await axiosInstance.patch(apiName.resendOTP, { email });
+      handleNotifications(
+        response.status === 200 ? "success" : "error",
+        response.data.message,
+        "",
+        3
       );
-      if (sendOTP?.status_code == 200) {
-        handleNotifications(
-          "success",
-          `${maskedEmail(email)} ${sendOTP?.message}`,
-          ``,
-          3
-        );
-        setOtp("");
-      } else {
-        handleNotifications("error", sendOTP.message, ``, 3);
+      if (response.status === 200) {
+        setResendTimer(15);
+        setOtp(""); // Clear OTP input
       }
       setResendTimer(15);
     } catch (error: any) {
@@ -96,9 +92,7 @@ const VerifyOTP = () => {
           </div>
           <div className="text-[#000000] font-[700] flex justify-center items-center">
             {email}
-            <span className="text-[#4C45EE] ml-[10px] cursor-pointer">
-              Edit
-            </span>
+            
           </div>
           <div className="flex justify-center items-center mt-[50px] verify-input ">
             <OTPInput
@@ -129,6 +123,7 @@ const VerifyOTP = () => {
           </div>
           <Button
             onClick={sendOtp}
+            disabled={otp.length < 6}
             htmlType="submit"
             type="primary"
             className="w-full h-12 !bg-[#4C45EE] hover:bg-[#4C45EE] mt-[55px]  font-[700]  letter-spacing-normal text-[15px] text-white py-2 px-4 rounded-md"
