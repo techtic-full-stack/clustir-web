@@ -1,9 +1,10 @@
-import React, { useState } from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
-import { Button, Input } from "antd";
-import { Typography } from "antd";
+import axiosInstance from "@/interceptors/Axios";
+import { apiName } from "@/interceptors/apiName";
+import { Button, Input, Typography } from "antd";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import * as Yup from "yup";
 
 const { Text } = Typography;
 
@@ -20,12 +21,47 @@ const initialValues = {
 const Login = () => {
   const [submitting, setSubmitting] = useState(false);
   const router = useRouter();
-
-  const loginSubmit = (values: any) => {
-    setSubmitting(true);
-    setTimeout(() => {
-      setSubmitting(false);
-    }, 2000);
+  const [loader, setLoader] = useState(false);
+  const [error, setError] = useState("");
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      let checkOnBoard = JSON.parse(
+        localStorage.getItem("userData") ?? ""
+      )?.is_onBoard;
+      if (checkOnBoard === false) {
+        router.push("/onboard");
+      } else {
+        router.push("/dashboard");
+      }
+    }
+  }, [router]);
+  const loginSubmit = async (values: any) => {
+    try {
+      const login: any = await axiosInstance.post(
+        apiName.login,
+        JSON.stringify({ ...values })
+      );
+      if (login?.status_code !== 200) {
+        setError(login?.message);
+        setLoader(false);
+        return false;
+      } else {
+        localStorage.setItem("token", login.token);
+        localStorage.setItem("userData", JSON.stringify(login.response));
+        setSubmitting(true);
+        setTimeout(() => {
+          setSubmitting(false);
+        }, 2000);
+        if (login?.response?.is_onBoard === false) {
+          router.push("/onboard");
+        } else {
+          router.push("/dashboard");
+        }
+      }
+    } catch (error: any) {
+      // setError(error?.message);
+      setLoader(false);
+    }
   };
 
   return (
@@ -64,7 +100,7 @@ const Login = () => {
                         touched.email && errors.email
                           ? "border-red-500"
                           : "border-gray-300"
-                      } focus:outline-none focus:border-blue-500`}
+                      } focus:outline-none focus:border-blue-500 input`}
                     />
                     <ErrorMessage
                       name="email"
@@ -94,11 +130,14 @@ const Login = () => {
                       className="text-[#FD0000]"
                     />
                   </div>
-
+                  {error && (
+                    <p className="text-red-500 my-[20px] font-500">{error}</p>
+                  )}
                   <Button
                     htmlType="submit"
                     className="w-full h-12 bg-[#4C45EE]  font-[700]  letter-spacing-normal text-[15px] text-white py-2 px-4 rounded-md"
-                    disabled={isSubmitting}
+                    disabled={isSubmitting || loader}
+                    loading={loader}
                   >
                     Login
                   </Button>

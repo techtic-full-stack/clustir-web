@@ -37,7 +37,7 @@ const VerifyOTP = () => {
         setLoader(false);
         return false;
       } else {
-        handleNotifications("success", `${verifyOtp?.message}`, ``, 3);
+        localStorage.removeItem("email");
         setLoader(false);
         setVerifySuccess(true);
       }
