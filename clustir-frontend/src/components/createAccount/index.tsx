@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { Button, Typography, Input } from "antd";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useRouter } from "next/router";
@@ -11,12 +10,12 @@ import { useNotification } from "../Notification";
 import { createAccountSchema } from "@/utils/formik/schema";
 
 function CreateAccount() {
-  const [showPassword, setShowPassword] = useState<boolean>(false);
   const [submitting, setSubmitting] = useState(false);
   const [loader, setLoader] = useState(false);
   const router = useRouter();
   const notificationContext = useNotification();
   const handleNotifications: any = notificationContext?.handleNotifications;
+
   const initialValues = {
     email: "",
     password: "",
@@ -42,14 +41,9 @@ function CreateAccount() {
         }, 1000);
       }
     } catch (error: any) {
-      console.log("error", error);
       setLoader(false);
       setSubmitting(false);
     }
-  };
-
-  const togglePasswordVisibility = () => {
-    setShowPassword((prevState) => !prevState);
   };
 
   return (
@@ -143,7 +137,7 @@ function CreateAccount() {
                       </span>
                     </Paragraph>
 
-                    <div className="text-[#000000] text-[14px] flex justify-center items-center  mt-[30px]">
+                    <div className="text-[#000000] text-[14px] flex justify-center items-center  mt-[25px] pb-[10px]">
                       Have an business account?{" "}
                       <span
                         className="text-[#000000] ml-[5px] cursor-pointer font-[600] text-[14px] "

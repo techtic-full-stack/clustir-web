@@ -10,17 +10,17 @@ import { loginSchema } from "@/utils/formik/schema";
 
 const { Text } = Typography;
 
-const initialValues = {
-  email: "",
-  password: "",
-};
-
 const Login = () => {
   const [submitting, setSubmitting] = useState(false);
   const router = useRouter();
   const [loader, setLoader] = useState(false);
   const notificationContext = useNotification();
   const handleNotifications: any = notificationContext?.handleNotifications;
+
+  const initialValues = {
+    email: "",
+    password: "",
+  };
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
@@ -49,7 +49,6 @@ const Login = () => {
         return false;
       } else {
         setSubmitting(true);
-
         setTimeout(() => {
           if (login?.response?.is_onBoard === false) {
             router.push("/onboard");
@@ -152,7 +151,7 @@ const Login = () => {
                       Forgot Password ?
                     </span>
 
-                    <div className="text-[#000000] text-[14px] flex justify-center items-center  mt-[20px]">
+                    <div className="text-[#000000] text-[14px] flex justify-center items-center  mt-[24px]">
                       Don’t have an account?
                       <span
                         className="text-[#000000] cursor-pointer ml-[5px] font-[600] text-[14px]"

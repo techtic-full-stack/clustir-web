@@ -79,7 +79,6 @@ const VerifyOTP = () => {
       }
       setResendTimer(15);
     } catch (error: any) {
-      console.log("error", error);
       handleNotifications("error", `${error?.message}`, ``, 3);
     }
   };
