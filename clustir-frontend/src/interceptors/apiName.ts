@@ -1,4 +1,5 @@
-export const apiName ={
-    signUp:"/signup",
-    resendOTP:"/user/resendOtp",
-}
+export const apiName = {
+  signUp: "/user/register",
+  resendOTP: "/user/resendOtp",
+  verifyUser: "/user/verifyUser",
+};

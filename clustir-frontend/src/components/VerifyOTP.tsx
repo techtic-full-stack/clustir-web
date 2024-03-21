@@ -10,13 +10,25 @@ import maskedEmail from "../../helper/MaskedEmail";
 
 const { Text } = Typography;
 const VerifyOTP = () => {
-  const [email, setEmail] = useState("janedoe@gmail.com");
+  const [email, setEmail] = useState("");
   const [confirm, setConfirm] = useState(false);
   const [otp, setOtp] = useState("");
   const [verifySuccess, setVerifySuccess] = useState(false);
   const notificationContext = useNotification();
   const handleNotifications: any = notificationContext?.handleNotifications;
-  const sendOtp = () => {
+  useEffect(() => {
+    const storedEmail = localStorage.getItem("email");
+    if (storedEmail) {
+      setEmail(storedEmail);
+    }
+  }, []);
+  const sendOtp = async () => {
+    console.log("otp", otp);
+    const verifyOtp: any = await axiosInstance.post(
+      apiName.verifyUser,
+      JSON.stringify({ email, otp })
+    );
+    console.log("verifyOtp", verifyOtp);
     setConfirm(true);
     setVerifySuccess(true);
   };

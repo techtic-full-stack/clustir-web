@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
-import { Typography } from "antd";
+import { Button, Typography } from "antd";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useRouter } from "next/router";
 import axiosInstance from "@/interceptors/Axios";
 import { apiName } from "@/interceptors/apiName";
 const { Paragraph, Text } = Typography;
+import Loader from "../Loader/Loader";
+import { useNotification } from "../Notification";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -23,25 +25,42 @@ const validationSchema = Yup.object().shape({
 function CreateAccount() {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [submitting, setSubmitting] = useState(false);
+  const [loader, setLoader] = useState(false);
   const router = useRouter();
-
+  const notificationContext = useNotification();
+  const handleNotifications: any = notificationContext?.handleNotifications;
   const initialValues = {
     email: "",
     password: "",
   };
 
-  const onSubmit = async(values: any) => {
-    setSubmitting(true);
-    const register = await axiosInstance.post(apiName.signUp, JSON.stringify({values}), {
-      headers: {
-          'Content-Type': 'multipart/form-data', // Set the content type to 'multipart/form-data'
-      },
-  });
-    setTimeout(() => {
+  const onSubmit = async (values: any) => {
+    try {
+      setLoader(true);
+      const register: any = await axiosInstance.post(
+        apiName.signUp,
+        JSON.stringify({ ...values })
+      );
+      if (register?.status_code !== 200) {
+        handleNotifications("error", `${register?.message}`, ``, 3);
+        setLoader(false);
+        return false;
+      } else {
+        setSubmitting(true);
+        setTimeout(() => {
+          setSubmitting(false);
+        }, 3000);
+        localStorage.setItem("email", values.email);
+        router.push("/verify");
+        setLoader(false);
+      }
+    } catch (error: any) {
+      console.log("error", error);
+      setLoader(false);
       setSubmitting(false);
-    }, 5000);
 
-    router.push("/verify");
+      // handleNotifications("error", `${error?.message}`, ``, 3);
+    }
   };
 
   const togglePasswordVisibility = () => {
@@ -56,6 +75,7 @@ function CreateAccount() {
             <Text className="font-bold   top-40 text-[20px]">
               Success! Hold tight
             </Text>
+            <Loader />
           </div>
         </>
       ) : (
@@ -123,13 +143,14 @@ function CreateAccount() {
                       />
                     </div>
                   </div>
-                  <button
-                    type="submit"
-                    className="w-full h-12 bg-[#4C45EE]  font-[700]  letter-spacing-normal text-[15px] text-white py-2 px-4 rounded-md"
-                    disabled={isSubmitting}
+                  <Button
+                    htmlType="submit"
+                    type="primary"
+                    className="w-full h-12 !bg-[#4C45EE] hover:bg-[#4C45EE]  font-[700]  letter-spacing-normal text-[15px] text-white py-2 px-4 rounded-md"
+                    loading={loader}
                   >
                     Create account
-                  </button>
+                  </Button>
                   <div className="mt-[30px] w-[400px] ">
                     <span className="text-[14px] font-[400] flex justify-center items-center">
                       By creating an account you agree to the
@@ -145,7 +166,7 @@ function CreateAccount() {
                     </Paragraph>
 
                     <div className="text-[#000000] text-[14px] flex justify-center items-center  mt-[30px]">
-                     Have an business account?{" "}
+                      Have an business account?{" "}
                       <span
                         className="text-[#000000] ml-[5px] cursor-pointer font-[500] text-[14px]"
                         onClick={() => router.push("/login")}
