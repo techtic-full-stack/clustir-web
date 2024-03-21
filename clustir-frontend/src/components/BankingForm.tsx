@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Field, Formik, Form } from "formik";
 import * as Yup from "yup";
 import { ErrorMessage } from "formik";
+import { bankingSchema } from "@/utils/formik/schema";
 
 interface FormValues {
   bankingAccount: string | undefined;
@@ -16,19 +17,17 @@ const initialValues = {
   einNumber: "",
 };
 
-const validationSchema = Yup.object().shape({
-  bankingAccount: Yup.string().required("Banking account is required"),
-  routingNumber: Yup.string().required("Routing is required"),
-  einNumber: Yup.string().required("EIN is required"),
-});
 const BankingForm = ({
-    OnBoardData,
-    setOnBoardData,step,setStep
-  }: {
-    OnBoardData: any;
-    setOnBoardData: any;
-    step: any,setStep: any;
-  }) => {
+  OnBoardData,
+  setOnBoardData,
+  step,
+  setStep,
+}: {
+  OnBoardData: any;
+  setOnBoardData: any;
+  step: any;
+  setStep: any;
+}) => {
   const onSubmit = (values: FormValues) => {
     try {
       setStep();
@@ -40,7 +39,7 @@ const BankingForm = ({
       <h2 className="text-black !mb-[20px] !text-[25px] label">Banking</h2>
       <Formik
         initialValues={initialValues}
-        validationSchema={validationSchema}
+        validationSchema={bankingSchema}
         onSubmit={onSubmit}
         enableReinitialize
       >
@@ -117,7 +116,6 @@ const BankingForm = ({
                     />
                   </Col>
                 </Row>
-                
               </Card>
               <div className="flex justify-end py-[20px]">
                 <Button

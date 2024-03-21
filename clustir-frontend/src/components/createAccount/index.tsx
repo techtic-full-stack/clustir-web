@@ -2,25 +2,13 @@ import React, { useState } from "react";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { Button, Typography } from "antd";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
 import { useRouter } from "next/router";
 import axiosInstance from "@/interceptors/Axios";
 import { apiName } from "@/interceptors/apiName";
 const { Paragraph, Text } = Typography;
 import Loader from "../Loader/Loader";
 import { useNotification } from "../Notification";
-
-const validationSchema = Yup.object().shape({
-  email: Yup.string()
-    .email("Invalid email address")
-    .required("Email is required"),
-  password: Yup.string()
-    .matches(
-      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-      "Password must contain at least 8 characters, one letter, one number and one special character"
-    )
-    .required("Password is required"),
-});
+import { createAccountSchema } from "@/utils/formik/schema";
 
 function CreateAccount() {
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -78,7 +66,7 @@ function CreateAccount() {
       ) : (
         <Formik
           initialValues={initialValues}
-          validationSchema={validationSchema}
+          validationSchema={createAccountSchema}
           onSubmit={onSubmit}
         >
           {({ isSubmitting, touched, errors }) => (

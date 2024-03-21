@@ -4,27 +4,21 @@ import { Button, Input, Typography } from "antd";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import * as Yup from "yup";
 import { useNotification } from "./Notification";
 import Loader from "./Loader/Loader";
+import { loginSchema } from "@/utils/formik/schema";
 
 const { Text } = Typography;
 
-const validationSchema = Yup.object().shape({
-  email: Yup.string()
-    .email("Invalid email address")
-    .required("Email is required"),
-  password: Yup.string().required("Password is required"),
-});
 const initialValues = {
   email: "",
   password: "",
 };
+
 const Login = () => {
   const [submitting, setSubmitting] = useState(false);
   const router = useRouter();
   const [loader, setLoader] = useState(false);
-  // const [error, setError] = useState("");
   const notificationContext = useNotification();
   const handleNotifications: any = notificationContext?.handleNotifications;
 
@@ -88,7 +82,7 @@ const Login = () => {
       ) : (
         <Formik
           initialValues={initialValues}
-          validationSchema={validationSchema}
+          validationSchema={loginSchema}
           onSubmit={loginSubmit}
         >
           {({ isSubmitting, touched, errors }) => (

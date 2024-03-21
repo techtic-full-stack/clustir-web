@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Field, Formik, Form } from "formik";
 import * as Yup from "yup";
 import { ErrorMessage } from "formik";
+import { BusinessContactInfoSchema } from "@/utils/formik/schema";
 
 interface FormValues {
   businessName: string | undefined;
@@ -32,21 +33,6 @@ const initialValues = {
   mobile: "",
 };
 
-const validationSchema = Yup.object().shape({
-  businessName: Yup.string().required("Business Name is required"),
-  contactName: Yup.string().required("Contact Name is required"),
-  employerId: Yup.string().required("Employee ID is required"),
-  title: Yup.string().required("Title is required"),
-  websiteUrl: Yup.string().required("Website URL is required"),
-  businessStreetAddress: Yup.string().required(
-    "Business Street Address is required"
-  ),
-  aptSteBldg: Yup.string(),
-  zipCode: Yup.string().required("Zip Code is required"),
-  city: Yup.string().required("City is required"),
-  state: Yup.string().required("State is required"),
-  mobile: Yup.string().required("Mobile is required"),
-});
 const BusinessContactInfo = ({
   OnBoardData,
   setOnBoardData,
@@ -72,7 +58,7 @@ const BusinessContactInfo = ({
       </h2>
       <Formik
         initialValues={initialValues}
-        validationSchema={validationSchema}
+        validationSchema={BusinessContactInfoSchema}
         onSubmit={onSubmit}
         enableReinitialize
       >
