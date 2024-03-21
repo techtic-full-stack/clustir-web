@@ -47,7 +47,7 @@ const BankingForm = ({
         {({ isSubmitting, errors }) => {
           return (
             <Form>
-              <Card className="flex flex-col bg-[#FFFFFF] p-[5px] rounded-lg w-[862px]">
+              <Card className="flex flex-col bg-[#FFFFFF] p-[5px] rounded-lg w-[862px] px-[70px]">
                 <div className="text-[18px] uppercase label">Banking Info</div>
                 <div className="text-[12px] my-[10px]">
                   The banking information provided is used for Clustir Payouts

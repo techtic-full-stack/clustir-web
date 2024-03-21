@@ -66,7 +66,7 @@ const BusinessContactInfo = ({
 
   return (
     <>
-      <h2 className="text-black mb-6 !text-[24px] label">
+      <h2 className="text-black !mb-[20px]  !text-[24px] label">
         Business Contact Info
       </h2>
       <Formik
@@ -78,8 +78,8 @@ const BusinessContactInfo = ({
         {({ isSubmitting, errors }) => {
           return (
             <Form>
-              <Card className="flex flex-col bg-[#FFFFFF] p-[5px] rounded-lg w-[862px]">
-                <div className="mb-[25px] label">CONTACT INFORMATION </div>
+              <Card className="flex flex-col bg-[#FFFFFF] p-[5px] rounded-lg w-[862px] px-[70px]">
+                <div className="mb-[25px] label ">CONTACT INFORMATION </div>
 
                 <Row className="my-[14] sm:mb-5">
                   <Col span={24} className="mb-5 sm:mb-0">
