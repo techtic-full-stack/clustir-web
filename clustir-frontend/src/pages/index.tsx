@@ -1,16 +1,14 @@
-import Image from "next/image";
-import { Inter } from "next/font/google";
-import Layout from "@/components/Layout";
-
-const inter = Inter({ subsets: ["latin"] });
+import { useRouter } from "next/router";
+import { use, useEffect } from "react";
 
 export default function Home() {
+ const router =useRouter();
+  useEffect(() => {
+  router.push('/login')
+ },[])
   return (
     <>
-      <Layout >
-
-      </Layout>
-
+      
     </>
   );
 }

@@ -36,7 +36,7 @@ const BankingForm = ({
   };
   return (
     <>
-      <h2 className="text-black mb-6 text-[25px]">Banking</h2>
+      <h2 className="text-black !mb-[20px] !text-[25px] label">Banking</h2>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -48,8 +48,8 @@ const BankingForm = ({
           return (
             <Form>
               <Card className="flex flex-col bg-[#FFFFFF] p-[5px] rounded-lg w-[862px]">
-                <div className="text-[18px]">Banking Info</div>
-                <div className="text-[12px] ">
+                <div className="text-[18px] uppercase label">Banking Info</div>
+                <div className="text-[12px] my-[10px]">
                   The banking information provided is used for Clustir Payouts
                   to make monthly subscription revenue ACH deposits into your
                   business bank account.. Clustir Payouts are made on 15th and
@@ -60,7 +60,7 @@ const BankingForm = ({
 
                 <Row className="my-[14] sm:mb-5">
                   <Col span={24} className="mb-5 sm:mb-0">
-                    <div>
+                    <div className="label">
                       Bank Name <span className="text-[red]">*</span>
                     </div>
                     <Field
@@ -80,7 +80,7 @@ const BankingForm = ({
 
                 <Row className="my-[14] sm:mb-5">
                   <Col span={24} className="mb-5 sm:mb-0">
-                    <div>
+                    <div className="label">
                       Routing #<span className="text-[red]">*</span>
                     </div>
                     <Field
@@ -100,7 +100,7 @@ const BankingForm = ({
 
                 <Row className="my-[14] sm:mb-5">
                   <Col span={24} className="mb-5 sm:mb-0">
-                    <div>
+                    <div className="label">
                       EIN # <span className="text-[red]">*</span>
                     </div>
                     <Field
