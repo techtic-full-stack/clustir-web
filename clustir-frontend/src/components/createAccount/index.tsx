@@ -126,11 +126,11 @@ function CreateAccount() {
                       By creating an account you agree to the
                     </span>
                     <Paragraph className=" flex justify-center items-center">
-                      <span className="text-[#4C45EE] text-[14px] mr-[6px] font-[500]">
+                      <span className="text-[#4C45EE] text-[14px] mr-[6px] font-[500] cursor-pointer">
                         Terms of Service
                       </span>{" "}
                       and{" "}
-                      <span className="text-[#4C45EE] text-[14px] ml-[6px] font-[500]">
+                      <span className="text-[#4C45EE] text-[14px] ml-[6px] font-[500] cursor-pointer">
                         Privacy Policy Copy
                       </span>
                     </Paragraph>
