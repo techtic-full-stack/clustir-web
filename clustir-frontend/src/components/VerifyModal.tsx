@@ -1,16 +1,20 @@
 import { FC } from "react";
 import { Modal, Button } from "antd";
 import { CloseOutlined } from "@ant-design/icons";
+import { useRouter } from "next/router";
 
 interface VerifySuccessModalProps {
   visible: boolean;
   onClose: () => void;
+  redirect: string;
 }
 
 const VerifySuccessModal: FC<VerifySuccessModalProps> = ({
   visible,
   onClose,
+  redirect,
 }) => {
+  const router = useRouter();
   return (
     <Modal
       title={
@@ -61,7 +65,10 @@ const VerifySuccessModal: FC<VerifySuccessModalProps> = ({
             letterSpacing: "1px",
             padding: "7px 40px 30px",
           }}
-          onClick={onClose}
+          onClick={() => {
+            router.push(redirect);
+            onClose();
+          }}
         >
           Next
         </Button>

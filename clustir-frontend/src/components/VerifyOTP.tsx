@@ -90,7 +90,7 @@ const VerifyOTP = () => {
           </button>
         </div>
       </div>
-        <VerifySuccessModal onClose={()=>setVerifySuccess(!verifySuccess)} visible={verifySuccess} key={1} />
+        <VerifySuccessModal onClose={()=>setVerifySuccess(!verifySuccess)} visible={verifySuccess} key={1} redirect={"/login"} />
     </>
   );
 };
