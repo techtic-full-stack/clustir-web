@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
-import { Button, Typography } from "antd";
+import { Button, Input, Typography } from "antd";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useRouter } from "next/router";
 import axiosInstance from "@/interceptors/Axios";
@@ -83,6 +83,7 @@ function CreateAccount() {
                     <Field
                       type="email"
                       name="email"
+                      as={Input}
                       className={`h-12 px-4 py-2 rounded-md border w-full ${
                         touched.email && errors.email
                           ? "border-red-500"
@@ -102,9 +103,9 @@ function CreateAccount() {
                     </div>
                     <div style={{ position: "relative" }}>
                       <Field
-                        type={showPassword ? "text" : "password"}
                         name="password"
-                        className={`h-12 px-4 py-2 rounded-md border w-full ${
+                        as={Input.Password}
+                        className={`rounded-md border w-full ${
                           touched.password && errors.password
                             ? "border-red-500"
                             : "border-gray-300"
