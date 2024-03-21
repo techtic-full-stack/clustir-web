@@ -1,10 +1,13 @@
+import Layout from "@/components/Layout";
 import { Typography } from "antd";
 
 const dashboard = () => {
   const { Text } = Typography;
   return (
     <>
-      <Text> Dashboard</Text>
+      <Layout>
+        <Text> Dashboard</Text>
+      </Layout>
     </>
   );
 };

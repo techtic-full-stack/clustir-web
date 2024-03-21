@@ -59,9 +59,10 @@ export const BusinessContactInfoSchema = Yup.object().shape({
     .required("State is required")
     .test('no-spaces', 'State should not contain only spaces', (value) => !/^\s+$/.test(value)),
   mobile: Yup.string()
-    .required("Mobile is required")
-    .matches(/^[0-9]+$/, "Mobile must contain only numbers")
-    .test('no-spaces', 'Mobile should not contain only spaces', (value) => !/^\s+$/.test(value)),
+  .required('Enter your mobile number')
+  .matches(/^[0-9]+$/, 'Phone Number must contain only numbers')
+  .min(10, 'Phone Number must be at least 10 digits')
+  .max(15, 'Phone Number must not exceed 15 digits'),
 });
 
 /**

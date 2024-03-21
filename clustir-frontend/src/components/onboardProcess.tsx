@@ -22,7 +22,7 @@ const OnboardProcess = () => {
   }
   useEffect(()=>{
     getBusinessData()
-  },[])
+  },[step])
   const handleStep = async (data:any) => {
     try {
       const register: any = await axiosInstance.post(
