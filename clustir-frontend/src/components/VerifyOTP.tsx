@@ -3,14 +3,19 @@ import { Button, Typography } from "antd";
 import { useEffect, useState } from "react";
 import OTPInput from "react-otp-input";
 import VerifySuccessModal from "./VerifyModal";
+import axiosInstance from "@/interceptors/Axios";
+import { apiName } from "@/interceptors/apiName";
+import { useNotification } from "./Notification";
+import maskedEmail from "../../helper/MaskedEmail";
 
 const { Text } = Typography;
 const VerifyOTP = () => {
   const [email, setEmail] = useState("janedoe@gmail.com");
   const [confirm, setConfirm] = useState(false);
   const [otp, setOtp] = useState("");
-  const [verifySuccess,setVerifySuccess] = useState(false);
-
+  const [verifySuccess, setVerifySuccess] = useState(false);
+  const notificationContext = useNotification();
+  const handleNotifications: any = notificationContext?.handleNotifications;
   const sendOtp = () => {
     setConfirm(true);
     setVerifySuccess(true);
@@ -32,9 +37,26 @@ const VerifyOTP = () => {
     };
   }, [resendTimer]);
 
-  const handleResendOTP = () => {
-    // Simulate sending OTP and start the timer
-    setResendTimer(15);
+  const handleResendOTP = async () => {
+    try {
+      // Simulate sending OTP and start the timer
+      const register: any = await axiosInstance.patch(
+        apiName.resendOTP,
+        JSON.stringify({ email: "team1@yopmail.com" })
+      );
+      console.log("register :>> ", register);
+      if (register) {
+        handleNotifications(
+          "success",
+          `${maskedEmail(email)} ${register.message}`,
+          ``,
+          3
+        );
+      }
+      setResendTimer(15);
+    } catch (error: any) {
+      handleNotifications("error", `${error?.message}`, ``, 3);
+    }
   };
 
   return (
@@ -90,7 +112,12 @@ const VerifyOTP = () => {
           </button>
         </div>
       </div>
-        <VerifySuccessModal onClose={()=>setVerifySuccess(!verifySuccess)} visible={verifySuccess} key={1} redirect={"/login"} />
+      <VerifySuccessModal
+        onClose={() => setVerifySuccess(!verifySuccess)}
+        visible={verifySuccess}
+        key={1}
+        redirect={"/login"}
+      />
     </>
   );
 };
