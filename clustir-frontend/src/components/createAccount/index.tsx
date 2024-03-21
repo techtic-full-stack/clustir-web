@@ -32,7 +32,8 @@ function CreateAccount() {
     setSubmitting(true);
     setTimeout(() => {
       setSubmitting(false);
-    }, 2000);
+    }, 3000);
+    router.push("/verify");
   };
 
   const togglePasswordVisibility = () => {
@@ -135,7 +136,7 @@ function CreateAccount() {
                       </span>
                     </Paragraph>
 
-                    <div className="text-[14px] flex justify-center items-center  mt-[30px]">
+                    <div className="text-[#000000] text-[14px] flex justify-center items-center  mt-[30px]">
                       Have an account?{" "}
                       <span
                         className="text-[#000000] ml-[5px] cursor-pointer font-[500] text-[14px]"
