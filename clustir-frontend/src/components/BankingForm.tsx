@@ -71,7 +71,7 @@ const BankingForm = ({
                 <Row className="my-[14] sm:mb-5">
                   <Col span={24} className="mb-5 sm:mb-0">
                     <div className="label">
-                      routingNumber #<span className="text-[red]">*</span>
+                      Routing  #<span className="text-[red]">*</span>
                     </div>
                     <Field
                       type="text"
