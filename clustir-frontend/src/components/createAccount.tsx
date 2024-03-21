@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
-import { Button, Typography, Input } from "antd";
+import { Button, Typography } from "antd";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useRouter } from "next/router";
 import axiosInstance from "@/interceptors/Axios";
 import { apiName } from "@/interceptors/apiName";
 const { Paragraph, Text } = Typography;
-import Loader from "../Loader/Loader";
-import { useNotification } from "../Notification";
+import Loader from "./Loader/Loader";
+import { useNotification } from "./Notification";
 import { createAccountSchema } from "@/utils/formik/schema";
 
 function CreateAccount() {
@@ -77,14 +77,12 @@ function CreateAccount() {
                 </div>
                 <div className="mt-[30px] ">
                   <div className="mb-[20px]">
-                    <div className="font-[700] text-[16px] font-brother text-[#000000] mb-[7px]">
+                    <div className="font-[700] text-[18px] font-brother text-[#000000] mb-[7px]">
                       Email
                     </div>
                     <Field
                       type="email"
                       name="email"
-                      placeholder="yourname@company.com"
-                      as={Input}
                       className={`h-12 px-4 py-2 rounded-md border w-full ${
                         touched.email && errors.email
                           ? "border-red-500"
@@ -93,33 +91,42 @@ function CreateAccount() {
                     />
                     <ErrorMessage
                       name="email"
-                      component="div"
-                      className="text-red-500"
+                      component="p"
+                      className="text-[#FD0000] text-[14px] pt-[4px]"
                     />
                   </div>
 
                   <div className="mb-[40px]">
-                    <div className="font-[700] text-[16px] font-brother text-[#000000] mb-[7px]">
+                    <div className="font-[700] text-[18px] font-brother text-[#000000] mb-[7px]">
                       Password
                     </div>
-
-                    <Field
-                      placeholder="Enter your password"
-                      type="password"
-                      name="password"
-                      as={Input.Password}
-                      className={`h-12 px-4 py-2 rounded-md border w-full ${
-                        touched.password && errors.password
-                          ? "border-red-500"
-                          : "border-gray-300"
-                      }  focus:outline-none focus:border-blue-500`}
-                    />
-
-                    <ErrorMessage
-                      name="password"
-                      component="div"
-                      className="text-red-500"
-                    />
+                    <div style={{ position: "relative" }}>
+                      <Field
+                        type={showPassword ? "text" : "password"}
+                        name="password"
+                        className={`h-12 px-4 py-2 rounded-md border w-full ${
+                          touched.password && errors.password
+                            ? "border-red-500"
+                            : "border-gray-300"
+                        }  focus:outline-none focus:border-blue-500`}
+                      />
+                      <button
+                        type="button"
+                        onClick={togglePasswordVisibility}
+                        className="absolute top-4 bottom-0 right-0 pr-4 flex  focus:outline-none"
+                      >
+                        {showPassword ? (
+                          <EyeInvisibleOutlined />
+                        ) : (
+                          <EyeTwoTone />
+                        )}
+                      </button>
+                      <ErrorMessage
+                        name="password"
+                        component="p"
+                        className="text-[#FD0000] text-[14px] pt-[4px]"
+                      />
+                    </div>
                   </div>
                   <Button
                     htmlType="submit"
@@ -146,7 +153,7 @@ function CreateAccount() {
                     <div className="text-[#000000] text-[14px] flex justify-center items-center  mt-[30px]">
                       Have an business account?{" "}
                       <span
-                        className="text-[#000000] ml-[5px] cursor-pointer font-[600] text-[14px] "
+                        className="text-[#000000] ml-[5px] cursor-pointer font-[500] text-[14px]"
                         onClick={() => router.push("/login")}
                       >
                         Login

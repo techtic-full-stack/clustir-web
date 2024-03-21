@@ -60,7 +60,7 @@ const BusinessContactInfo = ({
           return (
             <Form>
               <Card className="flex flex-col bg-[#FFFFFF] p-[5px] rounded-lg w-[862px] px-[70px]">
-                <div className="mb-[25px] label ">CONTACT INFORMATION </div>
+                <div className="pb-[25px] label ">CONTACT INFORMATION </div>
 
                 <Row className="my-[14] sm:mb-5">
                   <Col span={24} className="mb-5 sm:mb-0">
@@ -105,7 +105,7 @@ const BusinessContactInfo = ({
                 <Row className="my-[14] sm:mb-5">
                   <Col span={24} className="mb-5 sm:mb-0">
                     <div className="label">
-                      Employee ID # <span className="text-[red]">*</span>
+                      Employer ID # <span className="text-[red]">*</span>
                     </div>
                     <Field
                       type="text"
@@ -184,7 +184,7 @@ const BusinessContactInfo = ({
 
                 <Row className="my-[14] sm:mb-5">
                   <Col span={24} className="mb-5 sm:mb-0">
-                    <div className="label">Apt. ste. bldg. (optional)</div>
+                    <div className="label">Apt. Ste. Bldg. (Optional)</div>
                     <Field
                       type="text"
                       size="large"
@@ -269,6 +269,7 @@ const BusinessContactInfo = ({
                             +1
                           </span>
                         }
+                        className="ant-input"
                         type="text"
                         id="mobile"
                         name="mobile"

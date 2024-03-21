@@ -1,6 +1,9 @@
 import * as Yup from "yup";
 
 
+/**
+ * Schema for creating a new account.
+ */
 export const createAccountSchema = Yup.object().shape({
   email: Yup.string()
     .email("Invalid email address")
@@ -13,6 +16,9 @@ export const createAccountSchema = Yup.object().shape({
     .required("Password is required"),
 });
 
+/**
+ * Defines the login form validation schema using Yup.
+ */
 export const loginSchema = Yup.object().shape({
   email: Yup.string()
     .email("Invalid email address")
@@ -20,6 +26,9 @@ export const loginSchema = Yup.object().shape({
   password: Yup.string().required("Password is required"),
 });
 
+/**
+ * Schema for validating business contact information.
+ */
 export const BusinessContactInfoSchema = Yup.object().shape({
   businessName: Yup.string()
     .required("Business Name is required")
@@ -35,6 +44,7 @@ export const BusinessContactInfoSchema = Yup.object().shape({
     .test('no-spaces', 'Title should not contain only spaces', (value) => !/^\s+$/.test(value)),
   websiteUrl: Yup.string()
     .required("Website URL is required")
+    .url("Invalid URL format")
     .test('no-spaces', 'Website URL should not contain only spaces', (value) => !/^\s+$/.test(value)),
   businessStreetAddress: Yup.string()
     .required("Business Street Address is required")
@@ -50,9 +60,13 @@ export const BusinessContactInfoSchema = Yup.object().shape({
     .test('no-spaces', 'State should not contain only spaces', (value) => !/^\s+$/.test(value)),
   mobile: Yup.string()
     .required("Mobile is required")
+    .matches(/^[0-9]+$/, "Mobile must contain only numbers")
     .test('no-spaces', 'Mobile should not contain only spaces', (value) => !/^\s+$/.test(value)),
 });
 
+/**
+ * Defines the validation schema for the banking form.
+ */
 export const bankingSchema = Yup.object().shape({
   bankingAccount: Yup.string()
     .required("Banking account is required")

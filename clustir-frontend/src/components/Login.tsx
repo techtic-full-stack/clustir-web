@@ -49,7 +49,6 @@ const Login = () => {
         return false;
       } else {
         setSubmitting(true);
-
         setTimeout(() => {
           if (login?.response?.is_onBoard === false) {
             router.push("/onboard");
@@ -101,7 +100,7 @@ const Login = () => {
                       name="email"
                       placeholder="yourname@company.com"
                       as={Input}
-                      className={`h-12 px-4 py-2 rounded-md border w-full ${
+                      className={`h-12 px-2 py-2 rounded-md border w-full ${
                         touched.email && errors.email
                           ? "border-red-500"
                           : "border-gray-300"
@@ -123,7 +122,7 @@ const Login = () => {
                       type="password"
                       name="password"
                       as={Input.Password}
-                      className={`h-12 px-4 py-2 rounded-md border w-full ${
+                      className={`px-2 !py-0 rounded-md border w-full ${
                         touched.password && errors.password
                           ? "border-red-500"
                           : "border-gray-300"

@@ -39,7 +39,7 @@ const BankingForm = ({
             <Form>
               <Card className="flex flex-col bg-[#FFFFFF] p-[5px] rounded-lg w-[862px] px-[70px]">
                 <div className="text-[18px] uppercase label">Banking Info</div>
-                <div className="text-[12px] my-[10px]">
+                <div className="text-[12px] my-[10px] text-[#000000BF]">
                   The banking information provided is used for Clustir Payouts
                   to make monthly subscription revenue ACH deposits into your
                   business bank account.. Clustir Payouts are made on 15th and
