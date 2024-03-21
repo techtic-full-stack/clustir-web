@@ -109,8 +109,8 @@ const Login = () => {
                     />
                     <ErrorMessage
                       name="email"
-                      component="p"
-                      className="text-[#FD0000] text-[14px] pt-[4px]"
+                      component="div"
+                      className="text-red-500"
                     />
                   </div>
 
@@ -131,8 +131,8 @@ const Login = () => {
                     />
                     <ErrorMessage
                       name="password"
-                      component="p"
-                      className="text-[#FD0000] text-[14px] pt-[4px]"
+                      component="div"
+                      className="text-red-500"
                     />
                   </div>
                   {/* {error && (
@@ -155,7 +155,7 @@ const Login = () => {
                     <div className="text-[#000000] text-[14px] flex justify-center items-center  mt-[20px]">
                       Don’t have an account?
                       <span
-                        className="text-[#000000] cursor-pointer ml-[5px] font-[500] text-[14px]"
+                        className="text-[#000000] cursor-pointer ml-[5px] font-[600] text-[14px]"
                         onClick={() => router.push("/signup")}
                       >
                         Create One
